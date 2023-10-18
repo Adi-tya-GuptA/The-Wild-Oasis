@@ -1,9 +1,9 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 import { formatCurrency } from "../../utils/helpers";
-import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { deleteCabin } from "../../services/apiCabins";
-import toast from "react-hot-toast";
+
+import CreateCabinForm from "./CreateCabinForm";
+import { useDeleteCabin } from "./useDeleteCabin";
 
 const TableRow = styled.div`
   display: grid;
@@ -43,7 +43,12 @@ const Discount = styled.div`
   font-weight: 500;
   color: var(--color-green-700);
 `;
-const Button = styled.button`
+const Buttons = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 5px;
+`;
+const ButtonDel = styled.button`
   background-color: #f32222;
   color: white;
   font-weight: 400;
@@ -57,29 +62,42 @@ const Button = styled.button`
     background-color: #e74848;
   }
 `;
+const ButtonEdit = styled.button`
+  background-color: #2d61d3;
+  color: white;
+  font-weight: 400;
+  padding: 4px 2px;
+  border: none;
+  width: 75%;
+  border-radius: 5%;
+  outline: none;
+
+  &:hover {
+    background-color: #5f90cf;
+  }
+`;
 export default function CabinRow({ cabin }) {
-  const queryClient = useQueryClient();
+  const [showFrom, setShowForm] = useState(false);
   const { id, name, maxCapacity, regularPrice, discount, image } = cabin;
-  const { isLoading, mutate } = useMutation({
-    mutationFn: (id) => deleteCabin(id),
-    onSuccess: () => {
-      toast.success("cabin succesfully deleted");
-      queryClient.invalidateQueries({
-        queryKey: ["cabin"],
-      });
-    },
-    onError: (err) => toast.error(err.message),
-  });
+  const { isLoading, deletCabin } = useDeleteCabin();
   return (
-    <TableRow role="row">
-      <Img src={image} />
-      <Cabin>{name}</Cabin>
-      <div>fits up to {maxCapacity} guests</div>
-      <Price>{formatCurrency(regularPrice)}</Price>
-      <Discount>{formatCurrency(discount)}</Discount>
-      <Button onClick={() => mutate(id)} disabled={isLoading}>
-        Delete
-      </Button>
-    </TableRow>
+    <>
+      <TableRow role="row">
+        <Img src={image} />
+        <Cabin>{name}</Cabin>
+        <div>fits up to {maxCapacity} guests</div>
+        <Price>{formatCurrency(regularPrice)}</Price>
+        <Discount>{discount ? formatCurrency(discount) : "-"}</Discount>
+        <Buttons>
+          <ButtonEdit onClick={() => setShowForm((show) => !show)}>
+            Edit
+          </ButtonEdit>
+          <ButtonDel onClick={() =>deletCabin(id)} disabled={isLoading}>
+            Delete
+          </ButtonDel>
+        </Buttons>
+      </TableRow>
+      {showFrom && <CreateCabinForm cabinToEdit={cabin} />}
+    </>
   );
 }

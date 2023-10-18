@@ -10,53 +10,29 @@ import FileInput from "../../ui/FileInput";
 import Textarea from "../../ui/Textarea";
 import FormRow from "../../ui/FormRow";
 
-// setShowForm={setShowForm} showForm={showForm}
-function CreateCabinForm({ setShowForm, showForm, cabinToEdit = {} }) {
-  const { id: editId, ...editValues } = cabinToEdit;
-  const isEditSession = Boolean(editId);
-  const queryClient = useQueryClient();
-  const { register, handleSubmit, reset, getValues, formState } = useForm({
-    defaultValues: isEditSession ? editValues : {},
-  });
-  const { errors } = formState;
 
-  const { mutate: CreateCabin, isLoading } = useMutation({
+
+// setShowForm={setShowForm} showForm={showForm}
+function CreateCabinForm({ setShowForm, showForm ,cabin}) {
+  const queryClient = useQueryClient();
+  const { register, handleSubmit, reset, getValues, formState } = useForm();
+  const { errors } = formState;
+  const { mutate, isLoading } = useMutation({
     mutationFn: (newCabin) => createCabin(newCabin),
     onSuccess: () => {
       toast.success("new cabin created suucesfully!!");
       queryClient.invalidateQueries({
         queryKey: ["cabin"],
       });
-      // setShowForm((show) => !show);
+      setShowForm((show) => !show);
       reset();
     },
     onError: (err) => {
       toast.error(err.message);
     },
   });
-
-  const { mutate: editCabin, isLoading: isEditing } = useMutation({
-    mutationFn: ({ newCabinData, id }) => createCabin(newCabinData, id),
-    onSuccess: () => {
-      toast.success(" cabin suucesfully edited !!");
-      queryClient.invalidateQueries({
-        queryKey: ["cabin"],
-      });
-      // setShowForm((show) => !show);
-      reset();
-    },
-    onError: (err) => {
-      toast.error(err.message);
-    },
-  });
-  const isWorking = isEditing || isLoading;
-
   function onSubmit(data) {
-    const image = typeof data.image === "string" ? data.image : data.image[0];
-
-    if (isEditSession)
-      editCabin({ newCabinData: { ...data, image }, id: editId });
-    else CreateCabin({ ...data, image: image });
+    mutate({...data,image:data.image[0]});
     console.log(data);
   }
   function onError(err) {
@@ -66,10 +42,9 @@ function CreateCabinForm({ setShowForm, showForm, cabinToEdit = {} }) {
     <Form onSubmit={handleSubmit(onSubmit, onError)}>
       <FormRow label="Cabin name" error={errors?.name?.message}>
         <Input
-          type="text"
-          disabled={isWorking}
-          id="name"
-          {...register("name", {
+          type="number"
+          id="maxCapacity"
+          {...register("maxCapacity", {
             required: "this field is required",
             min: {
               value: 1,
@@ -82,7 +57,6 @@ function CreateCabinForm({ setShowForm, showForm, cabinToEdit = {} }) {
         <Input
           type="number"
           id="maxCapacity"
-          disabled={isWorking}
           {...register("maxCapacity", {
             required: "this field is required",
             min: {
@@ -96,7 +70,6 @@ function CreateCabinForm({ setShowForm, showForm, cabinToEdit = {} }) {
         <Input
           type="number"
           id="regularPrice"
-          disabled={isWorking}
           {...register("regularPrice", {
             required: "this field is required",
             min: {
@@ -110,7 +83,6 @@ function CreateCabinForm({ setShowForm, showForm, cabinToEdit = {} }) {
         <Input
           type="number"
           id="discount"
-          disabled={isWorking}
           defaultValue={0}
           {...register("discount", {
             required: "this field is required",
@@ -128,7 +100,6 @@ function CreateCabinForm({ setShowForm, showForm, cabinToEdit = {} }) {
         <Textarea
           type="number"
           id="description"
-          disabled={isWorking}
           defaultValue=""
           {...register("description", {
             required: "this field is required",
@@ -137,27 +108,20 @@ function CreateCabinForm({ setShowForm, showForm, cabinToEdit = {} }) {
       </FormRow>
 
       <FormRow label="Cabin photo" error={errors?.image?.message}>
-        <FileInput
-          id="image"
-          type="file"
-          accept="image/*"
-          {...register("image", {
-            required: isEditSession ? false : "this field is required",
+        <FileInput id="image" type="file" accept="image/*"   {...register("image", {
+            required: "this field is required",
             min: {
               value: 1,
               message: "capacity should be atleast one",
             },
-          })}
-        />
+          })}/>
       </FormRow>
 
       <FormRow>
         <Button variation="secondary" type="reset">
           Cancel
         </Button>
-        <Button disabled={isWorking}>
-          {isEditSession ? "Edit Cabin" : "Add cabin"}
-        </Button>
+        <Button disabled={isLoading}>Add cabin</Button>
       </FormRow>
     </Form>
   );
