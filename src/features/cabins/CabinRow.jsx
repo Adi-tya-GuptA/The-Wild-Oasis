@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import styled from "styled-components";
 import { formatCurrency } from "../../utils/helpers";
 
+import { HiSquare2Stack } from "react-icons/hi2";
 import CreateCabinForm from "./CreateCabinForm";
 import { useDeleteCabin } from "./useDeleteCabin";
 
@@ -92,7 +93,7 @@ export default function CabinRow({ cabin }) {
           <ButtonEdit onClick={() => setShowForm((show) => !show)}>
             Edit
           </ButtonEdit>
-          <ButtonDel onClick={() =>deletCabin(id)} disabled={isLoading}>
+          <ButtonDel onClick={() => deletCabin(id)} disabled={isLoading}>
             Delete
           </ButtonDel>
         </Buttons>
