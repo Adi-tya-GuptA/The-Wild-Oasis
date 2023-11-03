@@ -75,13 +75,13 @@ function Open({ children, opens: opensWindowName }) {
   return cloneElement(children, { onClick: () => open(opensWindowName) });
 }
 
-function Window({ children, name, onClose }) {
+function Window({ children, name }) {
   const { openName, close } = useContext(ModalContext);
   if (name !== openName) return null;
   return createPortal(
     <Overlay>
       <StyledModal>
-        <Button onClick={onClose}>
+        <Button onClick={close}>
           <HiXMark />
         </Button>
         <div>{cloneElement(children, { onCloseModal: close })}</div>
