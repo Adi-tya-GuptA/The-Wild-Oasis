@@ -58,7 +58,10 @@ function CreateCabinForm({ cabinToEdit = {}, onCloseModal }) {
     console.log(err);
   }
   return (
-    <Form onSubmit={handleSubmit(onSubmit, onError)} type={onCloseModal?'modal':'regular'}>
+    <Form
+      onSubmit={handleSubmit(onSubmit, onError)}
+      type={onCloseModal ? "modal" : "regular"}
+    >
       <FormRow label="Cabin name">
         <Input
           type="text"
@@ -116,7 +119,7 @@ function CreateCabinForm({ cabinToEdit = {}, onCloseModal }) {
         />
       </FormRow>
 
-      <FormRow label="Description for website">
+      <FormRow label="Description for room">
         <Textarea
           type="number"
           id="description"
