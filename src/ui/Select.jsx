@@ -1,3 +1,4 @@
+import React from "react";
 import styled from "styled-components";
 
 const StyledSelect = styled.select`
@@ -13,3 +14,15 @@ const StyledSelect = styled.select`
   font-weight: 500;
   box-shadow: var(--shadow-sm);
 `;
+
+export default function Select({ options, value, onChange, ...props }) {
+  return (
+    <StyledSelect value={value} onChange={onChange} {...props}>
+      {options.map((Option) => (
+        <option key={Option.value} value={Option.value}>
+          {Option.label}
+        </option>
+      ))}
+    </StyledSelect>
+  );
+}

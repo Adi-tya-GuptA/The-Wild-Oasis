@@ -1,3 +1,4 @@
+import React from "react";
 import styled from "styled-components";
 
 const StyledPagination = styled.div`
@@ -55,3 +56,15 @@ const PaginationButton = styled.button`
     color: var(--color-brand-50);
   }
 `;
+
+const Pagination = () => {
+  return (
+    <StyledPagination>
+      <p>
+        showing <span>1</span> to <span>10</span> of <span>23</span> results
+      </p>
+    </StyledPagination>
+  );
+};
+
+export default Pagination;
