@@ -1,22 +1,21 @@
-import { useNavigate } from 'react-router-dom';
-import styled from 'styled-components';
+import { useNavigate } from "react-router-dom";
+import styled from "styled-components";
 
-import Spinner from 'ui/Spinner';
-import BookingDataBox from './BookingDataBox';
-import Row from 'ui/Row';
-import Heading from 'ui/Heading';
-import Tag from 'ui/Tag';
-import ButtonGroup from 'ui/ButtonGroup';
-import Button from 'ui/Button';
-import Modal from 'ui/Modal';
-import ConfirmDelete from 'ui/ConfirmDelete';
-
-import { useBooking } from 'features/bookings/useBooking';
-import { useDeleteBooking } from './useDeleteBooking';
-import { useMoveBack } from 'hooks/useMoveBack';
-import { useCheckout } from 'features/check-in-out/useCheckout';
-import ButtonText from 'ui/ButtonText';
-import Empty from 'ui/Empty';
+import BookingDataBox from "./BookingDataBox";
+import Spinner from "../../ui/Spinner";
+import Row from "../../ui/Row";
+import Heading from "../../ui/Heading";
+import ButtonText from "../../ui/ButtonText";
+import { useMoveBack } from "../../hooks/useMoveBack";
+import Tag from "../../ui/Tag";
+import { useBooking } from "./useBooking";
+import Empty from "../../ui/Empty";
+import Button from "../../ui/Button";
+// import Button from "../../ui/Button";
+import ButtonGroup from "../../ui/ButtonGroup";
+import { useCheckout } from "../check-in-out/useCheckout";
+import { HiArrowUpOnSquare } from "react-icons/hi2";
+// import Modal from "../../ui/Modal";
 
 const HeadingGroup = styled.div`
   display: flex;
@@ -25,31 +24,33 @@ const HeadingGroup = styled.div`
 `;
 
 function BookingDetail() {
-  const { booking } = useBooking();
-  const { mutate: deleteBooking, isLoading: isDeleting } = useDeleteBooking();
-  const { mutate: checkout, isLoading: isCheckingOut } = useCheckout();
-
-  const moveBack = useMoveBack();
+  // const {  isLoading, error, booking,id} = useBooking();
+  const {booking,isLoading}=useBooking();
+  const {checkout,isCheckingOut}=useCheckout();
+  // const { mutate: deleteBooking, isLoading: isDeleting } = useDeleteBooking();
+  // const { mutate: checkout, isLoading: isCheckingOut } = useCheckout();
+  console.log(booking, 22, "bookingDetails");
   const navigate = useNavigate();
+  const moveBack = useMoveBack();
 
-  // if (isLoading) return <Spinner />;
-  // if (!booking) return <Empty resource='booking' />;
+  if (isLoading) return <Spinner />;
+  if (!booking) return <Empty resource='booking' />;
 
   const statusToTagName = {
-    unconfirmed: 'blue',
-    'checked-in': 'green',
-    'checked-out': 'silver',
+    unconfirmed: "blue",
+    "checked-in": "green",
+    "checked-out": "silver",
   };
 
-  const { id: bookingId, status } = booking;
-
+  const { id, status } = booking;
+  console.log(id,status, 36, "bookingDetail");
   // We return a fragment so that these elements fit into the page's layout
   return (
     <>
-      <Row type='horizontal'>
+      <Row type="horizontal">
         <HeadingGroup>
-          <Heading type='h1'>Booking #{bookingId}</Heading>
-          <Tag type={statusToTagName[status]}>{status.replace('-', ' ')}</Tag>
+          <Heading type="h1">Booking #{id}</Heading>
+          <Tag type={statusToTagName[status]}>{status?.replace("-", " ")}</Tag>
         </HeadingGroup>
         <ButtonText onClick={moveBack}>&larr; Back</ButtonText>
       </Row>
@@ -57,33 +58,33 @@ function BookingDetail() {
       <BookingDataBox booking={booking} />
 
       <ButtonGroup>
-        {status === 'unconfirmed' && (
-          <Button onClick={() => navigate(`/checkin/${bookingId}`)}>
+        {status === "unconfirmed" && (
+          <Button onClick={() => navigate(`/checkin/${id}`)}>
             Check in
           </Button>
         )}
 
-        {status === 'checked-in' && (
-          <Button onClick={() => checkout(bookingId)} disabled={isCheckingOut}>
+         {status === "checked-in" && (
+          <Button onClick={() => checkout(id)} disabled={isCheckingOut} icon={<HiArrowUpOnSquare/>}>
             Check out
           </Button>
-        )}
-
+        )} 
+{/* 
         <Modal>
-          <Modal.Toggle opens='delete'>
-            <Button variation='danger'>Delete booking</Button>
+          <Modal.Toggle opens="delete">
+            <Button variation="danger">Delete booking</Button>
           </Modal.Toggle>
-          <Modal.Window name='delete'>
+          <Modal.Window name="delete">
             <ConfirmDelete
-              resource='booking'
+              resource="booking"
               // These options will be passed wherever the function gets called, and they determine what happens next
-              onConfirm={(options) => deleteBooking(bookingId, options)}
+              onConfirm={(options) => deleteBooking(id, options)}
               disabled={isDeleting}
             />
           </Modal.Window>
-        </Modal>
+        </Modal> */}
 
-        <Button variation='secondary' onClick={moveBack}>
+        <Button variation="secondary" onClick={moveBack}>
           Back
         </Button>
       </ButtonGroup>

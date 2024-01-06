@@ -18,7 +18,7 @@ function UpdateSettingsForm() {
     } = {},
     isLoading,
   } = useSettings();
-  const { isUpdating, updateSetting} = useUpdateSetting();
+  const { isUpdating, updateSetting } = useUpdateSetting();
 
   if (isLoading) return <Spinner />;
 
@@ -62,7 +62,7 @@ function UpdateSettingsForm() {
         <Input
           type="number"
           defaultValue={breakfastPrice}
-          onBlur={(e) => handleBlur(e, "breakfastPrice")}
+          onBlur={(e) => handleBlur(e, "breakFastPrice")}
           disabled={isUpdating}
           id="breakfast-price"
         />
