@@ -15,6 +15,7 @@ import AppLayout from "./ui/AppLayout";
 import Booking from "./pages/Booking";
 import { Toaster } from "react-hot-toast";
 import CheckinBooking from "./features/check-in-out/CheckinBooking";
+import ProtectedRout from "./ui/ProtectedRout";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -31,7 +32,7 @@ function App() {
       <GlobalStyles />
       <BrowserRouter>
         <Routes>
-          <Route element={<AppLayout />}>
+          <Route element={<ProtectedRout> <AppLayout /></ProtectedRout>}>
             <Route index element={<Navigate replace to="dashboard" />} />
             <Route path="dashboard" element={<Dashboard />} />
             <Route path="bookings" element={<Bookings />} />
