@@ -12,9 +12,9 @@ function SignupForm() {
   const { register, formState, getValues, handleSubmit, reset } = useForm();
   const { errors } = formState;
 
-  function onSubmit({ fullName, email, password }) {
+  function onSubmit({ fullName, email, password,role="user" }) {
     signup(
-      { fullName, email, password },
+      { fullName, email, password,role },
       {
         onSettled: () => reset(),
       }
