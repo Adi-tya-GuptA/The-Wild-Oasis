@@ -1,11 +1,5 @@
 import supabase, { supabaseUrl } from "./supabase";
 
-export async function setCustomClaims(role = "user") {
-  const { data, error } = await supabase.auth.updateUser({
-    role,
-  });
-}
-
 export async function signup({ fullName, email, password, role = "user" }) {
   const { data, error } = await supabase.auth.signUp({
     email,

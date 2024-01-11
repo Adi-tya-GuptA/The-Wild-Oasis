@@ -5,7 +5,7 @@ import BookingTableOperations from "../features/bookings/BookingTableOperations"
 import { useUser } from "../features/authentication/useUser";
 
 function Bookings() {
-  const { isLoading, user, isAuthenticated } = useUser();
+  const { user } = useUser();
   return (
     <>
       <Row type="horizontal">

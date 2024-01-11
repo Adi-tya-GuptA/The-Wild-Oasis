@@ -1,5 +1,5 @@
 import { useQuery, useQueryClient } from "@tanstack/react-query";
-import React from "react";
+
 import { getBookings } from "../../services/apiBookings";
 import { useSearchParams } from "react-router-dom";
 // import { getCabins } from "../../services/apiCabins";

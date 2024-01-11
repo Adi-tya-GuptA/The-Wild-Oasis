@@ -1,8 +1,8 @@
-import React, { useState } from "react";
+import React from "react";
 import styled from "styled-components";
 import { formatCurrency } from "../../utils/helpers";
 
-import { HiPencil, HiSquare2Stack, HiTrash } from "react-icons/hi2";
+import { HiPencil, HiTrash } from "react-icons/hi2";
 import CreateCabinForm from "./CreateCabinForm";
 import { useDeleteCabin } from "./useDeleteCabin";
 import Modal from "../../ui/Modal";
@@ -53,36 +53,10 @@ const Buttons = styled.div`
   align-items: center;
   gap: 5px;
 `;
-const ButtonDel = styled.button`
-  background-color: #f32222;
-  color: white;
-  font-weight: 400;
-  padding: 4px 2px;
-  border: none;
-  width: 75%;
-  border-radius: 5%;
-  outline: none;
 
-  &:hover {
-    background-color: #e74848;
-  }
-`;
-const ButtonEdit = styled.button`
-  background-color: #2d61d3;
-  color: white;
-  font-weight: 400;
-  padding: 4px 2px;
-  border: none;
-  width: 75%;
-  border-radius: 5%;
-  outline: none;
 
-  &:hover {
-    background-color: #5f90cf;
-  }
-`;
 export default function CabinRow({ cabin }) {
-  const [showFrom, setShowForm] = useState(false);
+
   const { id, name, maxCapacity, regularPrice, discount, image } = cabin;
   const { isLoading, deletCabin } = useDeleteCabin();
   return (
