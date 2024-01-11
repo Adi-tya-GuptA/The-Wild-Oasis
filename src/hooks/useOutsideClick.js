@@ -1,27 +1,23 @@
 import { useEffect, useRef } from "react";
 
-export function useOutsideClick({ handler, listenCapturing = true }) {
+export function useOutsideClick(handler, listenCapturing = true) {
   const ref = useRef();
 
-  useEffect(() => {
-    function handleClick(e) {
-      // Check if ref.current is null or undefined
-      if (ref.current && !ref.current.contains(e.target)) {
-        // Ensure that handler is a function before calling it
-        if (typeof handler === "function") {
+  useEffect(
+    function () {
+      function handleClick(e) {
+        if (ref.current && !ref.current.contains(e.target)) {
           handler();
-        } else {
-          console.error("Handler is not a function");
         }
       }
-    }
 
-    document.addEventListener("click", handleClick, listenCapturing);
+      document.addEventListener("click", handleClick, listenCapturing);
 
-    return () => {
-      document.removeEventListener("click", handleClick, listenCapturing);
-    };
-  }, [handler, listenCapturing]);
+      return () =>
+        document.removeEventListener("click", handleClick, listenCapturing);
+    },
+    [handler, listenCapturing]
+  );
 
   return ref;
 }
