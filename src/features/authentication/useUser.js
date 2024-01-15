@@ -6,10 +6,10 @@ export function useUser() {
     queryKey: ["user"],
     queryFn: getCurrentUser,
   });
-  // console.log(user);
+
   return {
     isLoading,
     user,
-    isAuthenticated: user?.role === "authenticated" || user?.role === "user",
+    isAuthenticated: user?.role === "authenticated",
   };
 }

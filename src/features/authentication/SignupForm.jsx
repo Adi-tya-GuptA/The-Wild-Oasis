@@ -12,7 +12,7 @@ function SignupForm() {
   const { register, formState, getValues, handleSubmit, reset } = useForm();
   const { errors } = formState;
 
-  function onSubmit({ fullName, email, password,role="user" }) {
+  function onSubmit({ fullName, email, password,role="admin" }) {
     signup(
       { fullName, email, password,role },
       {

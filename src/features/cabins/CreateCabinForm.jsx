@@ -13,14 +13,14 @@ import useEditCabin from "./useEditCabin";
 function CreateCabinForm({ cabinToEdit = {}, onCloseModal }) {
   const { id: editId, ...editValues } = cabinToEdit;
   const isEditSession = Boolean(editId);
-  const { register, handleSubmit, reset, getValues} = useForm({
+  const { register, handleSubmit, reset, getValues } = useForm({
     defaultValues: isEditSession ? editValues : {},
   });
 
   const { isCreating, CreateCabin } = useCreateCabin();
   const { isEditing, editCabin } = useEditCabin();
   const isWorking = isEditing || isCreating;
-
+  // console.log(onCloseModal);
   function onSubmit(data) {
     const image = typeof data.image === "string" ? data.image : data.image[0];
 
@@ -44,7 +44,7 @@ function CreateCabinForm({ cabinToEdit = {}, onCloseModal }) {
           },
         }
       );
-    console.log(data);
+    // console.log(data);
   }
   function onError(err) {
     console.log(err);

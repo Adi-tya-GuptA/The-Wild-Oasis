@@ -1,12 +1,18 @@
-import styled from 'styled-components';
-import { Flag } from 'ui/Flag';
+import styled from "styled-components";
+// import Button from "../../ui/Button";
+// import ConfirmDelete from "../../ui/ConfirmDelete";
+// import Modal from "../../ui/Modal";
+// import Menus from "../../ui/Menus";
+// import { HiPencil, HiTrash } from "react-icons/hi2";
+// import { Flag } from 'ui/Flag';
+import AddBooking from "../bookings/AddBooking";
 
 const StyledGuestListItem = styled.li`
   display: grid;
-  grid-template-columns: 2rem 2fr 1fr;
+  grid-template-columns: 0.7fr 1fr 1fr 1fr;
   gap: 0.8rem;
   align-items: center;
-  padding: 0.6rem 1.6rem;
+  padding: 0.6rem 2.5rem;
   transition: all 0.2s;
 
   &:not(:last-child) {
@@ -20,19 +26,45 @@ const StyledGuestListItem = styled.li`
 `;
 
 const ID = styled.div`
-  justify-self: right;
-  font-size: 1.2rem;
+  /* justify-self: right; */
+  font-size: 1.5rem;
   color: var(--color-grey-500);
 `;
 
 function GuestListItem({ guest, onClick }) {
+  // console.log(guest);
   return (
-    <StyledGuestListItem onClick={() => onClick(guest)} role='button'>
-      <Flag src={guest.countryFlag} alt={`Flag of ${guest.nationality}`} />
-      <div>{guest.fullName}</div>
-      <ID>ID: {guest.nationalID}</ID>
+    <StyledGuestListItem onClick={() => onClick(guest)} role="button">
+      <ID>{guest.id}</ID>
+      <div>{guest.name}</div>
+      <div>{guest.email}</div>
+      {/* <Button>Create Booking</Button> */}
+      <AddBooking id={guest.id} />
     </StyledGuestListItem>
   );
 }
 
 export default GuestListItem;
+/**
+ * countryFlag
+: 
+"https://flagcdn.com/pt.svg"
+created_at
+: 
+"2023-11-30T08:50:32.118606+00:00"
+email
+: 
+"hello@jonas.io"
+id
+: 
+33
+name
+: 
+"Jonas Schmedtmann"
+nationalId
+: 
+null
+nationality
+: 
+"Portugal"
+ */

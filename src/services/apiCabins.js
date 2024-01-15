@@ -1,5 +1,20 @@
 import supabase, { supabaseUrl } from "./supabase";
 
+export async function getCabin(id) {
+  const { data, error } = await supabase
+    .from("cabins")
+    .select("*")
+    .eq("id", id)
+    .single();
+  // console.log(data);
+  if (error) {
+    console.error(error);
+    throw new Error("cabin not found");
+  }
+
+  return data;
+}
+
 export async function getCabins() {
   const { data, error } = await supabase.from("cabins").select("*");
 
@@ -12,7 +27,7 @@ export async function getCabins() {
 
 export async function createCabin(neweCabin, id) {
   const hasImagePath = neweCabin.image?.startsWith?.(supabaseUrl);
-  console.log(neweCabin.image);
+
   const imageName = `${Math.random()}-${neweCabin.image.name}`.replaceAll(
     "/",
     ""
@@ -22,8 +37,6 @@ export async function createCabin(neweCabin, id) {
     ? neweCabin.image
     : `${supabaseUrl}/storage/v1/object/public/cabin-images/${imageName}`;
 
-  console.log("imagepath", imagePath);
-  console.log("hasimagepath", hasImagePath);
   /*
   https://lydtklrinqsqkdnycchu.supabase.co/storage/v1/object/public/cabin-images/cabin-001.jpg
   */

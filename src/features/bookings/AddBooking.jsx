@@ -1,17 +1,16 @@
-
 import Button from "../../ui/Button";
 import Modal from "../../ui/Modal";
-import CreateCabinForm from "./CreateCabinForm";
+import CreateBookingForm from "./CreateBookingForm";
 
-function AddCabin() {
+function AddBooking({ id }) {
   return (
     <div>
       <Modal>
         <Modal.Open opens="cabin-form">
-          <Button>Add New Cabin</Button>
+          <Button>Add Booking</Button>
         </Modal.Open>
         <Modal.Window name="cabin-form">
-          <CreateCabinForm  onCloseModal={Modal.close}/>
+          <CreateBookingForm id={id} onCloseModal={Modal.close} />
         </Modal.Window>
       </Modal>
     </div>
@@ -33,7 +32,7 @@ function AddCabin() {
 //   );
 // }
 
-export default AddCabin;
+export default AddBooking;
 /**
  *  <Modal.Toggle opens="new-cabin">
         <Button>Add new cabin</Button>

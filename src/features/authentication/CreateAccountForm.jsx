@@ -3,35 +3,35 @@ import Button from "../../ui/Button";
 import Form from "../../ui/Form";
 import FormRow from "../../ui/FormRow";
 import Input from "../../ui/Input";
-import { useLogin } from "./useLogin";
+import { useSignup } from "./useSignup";
 import SpinnerMini from "../../ui/SpinnerMini";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
-
+// import toast from "react-hot-toast";
 const StyledA = styled.a`
   cursor: pointer;
 
   &:hover {
     /* Add your hover styles here */
     /* For example, change the color on hover */
-    color: #1744a3;
+    color: #581497;
   }
 `;
-function LoginForm() {
-  const [email, setEmail] = useState("ad@gmai.com");
-  const [password, setPassword] = useState("1234");
-  const { login, isLoading } = useLogin();
-  const navigate=useNavigate();
+function CreateAccountForm() {
+  const navigate = useNavigate();
+  const [email, setEmail] = useState();
+  const [fullName, setName] = useState();
+  const [password, setPassword] = useState();
+  const { signup, isLoading } = useSignup();
 
   function handleSubmit(e) {
     e.preventDefault();
     if (!email || !password) return;
-    login(
-      { email, password },
+    signup(
+      { fullName, email, password },
       {
-        onSettled: () => {
-          setEmail("");
-          setPassword("");
+        onSuccess: () => {
+          navigate("/dashboard", { replace: true });
         },
       }
     );
@@ -39,11 +39,20 @@ function LoginForm() {
 
   return (
     <Form onSubmit={handleSubmit}>
+      <FormRow label="Full Name" orientation="vertical">
+        <Input
+          type="text"
+          id="fullName"
+          autoComplete="username"
+          value={fullName}
+          onChange={(e) => setName(e.target.value)}
+        />
+      </FormRow>
       <FormRow label="Email address" orientation="vertical">
         <Input
           type="email"
           id="email"
-          // This makes this form better for password managers
+          
           autoComplete="username"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
@@ -60,16 +69,17 @@ function LoginForm() {
       </FormRow>
       <FormRow orientation="vertical">
         <Button size="large" disabled={isLoading}>
-          {!isLoading ? "Login" : <SpinnerMini />}
+          {!isLoading ? "Signup" : <SpinnerMini />}
         </Button>
       </FormRow>
       <FormRow>
         <div>
-     Don't have acount <StyledA onClick={()=>navigate('/signup')}>Signup</StyledA>
+          Allready have an account ?{" "}
+          <StyledA onClick={() => navigate("/login")}>Login</StyledA>
         </div>
       </FormRow>
     </Form>
   );
 }
 
-export default LoginForm;
+export default CreateAccountForm;

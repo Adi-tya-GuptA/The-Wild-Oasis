@@ -1,6 +1,6 @@
 import supabase, { supabaseUrl } from "./supabase";
 
-export async function signup({ fullName, email, password, role = "user" }) {
+export async function signup({ fullName, email, password, role = "guest" }) {
   const { data, error } = await supabase.auth.signUp({
     email,
     password,
@@ -14,9 +14,7 @@ export async function signup({ fullName, email, password, role = "user" }) {
     },
   });
   if (error) throw new Error(error.message);
-  await supabase.auth.updateUser({
-    role,
-  });
+  
   return data;
 }
 

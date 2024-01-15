@@ -14,14 +14,14 @@ const StyledHeaderMenu = styled.ul`
 export default function HeaderMenu() {
   const navigate = useNavigate();
   return (
-    <StyledHeaderMenu onClick={() => navigate("/account")}>
-      <li>
+    <StyledHeaderMenu>
+      <li onClick={() => navigate("/account")}>
         <ButtonIcon>
           <HiOutlineUser />
         </ButtonIcon>
       </li>
       <li>
-        <DarkModeToggle/>
+        <DarkModeToggle />
       </li>
       <li>
         <Logout />

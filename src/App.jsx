@@ -10,6 +10,7 @@ import Users from "./pages/Users";
 import Settings from "./pages/Settings";
 import Account from "./pages/Account";
 import Login from "./pages/Login";
+import Guests from "./pages/Guests";
 import PageNotFound from "./pages/PageNotFound";
 import AppLayout from "./ui/AppLayout";
 import Booking from "./pages/Booking";
@@ -17,6 +18,7 @@ import { Toaster } from "react-hot-toast";
 import CheckinBooking from "./features/check-in-out/CheckinBooking";
 import ProtectedRout from "./ui/ProtectedRout";
 import { DarkModeProvider } from "./context/DarkModeToggleContext";
+import Signup from "./pages/Signup";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -51,9 +53,11 @@ function App() {
               <Route path="users" element={<Users />} />
               <Route path="settings" element={<Settings />} />
               <Route path="account" element={<Account />} />
+              <Route path="guests" element={<Guests />} />
             </Route>
 
             <Route path="login" element={<Login />} />
+            <Route path="signup" element={<Signup/>} />
             <Route path="*" element={<PageNotFound />} />
           </Routes>
         </BrowserRouter>

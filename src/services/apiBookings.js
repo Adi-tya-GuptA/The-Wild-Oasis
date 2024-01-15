@@ -1,4 +1,4 @@
-import { getToday } from "../utils/helpers";
+import { getToday, subtractDates } from "../utils/helpers";
 import supabase from "./supabase";
 
 export async function getBookings({ filter, sortBy, page }) {
@@ -7,7 +7,7 @@ export async function getBookings({ filter, sortBy, page }) {
     .select("*, cabins(name), guests(name,email)", {
       count: "exact",
     });
-  console.log(filter, 14);
+  // console.log(filter, 14);
   if (filter !== null) {
     query = query[filter.method || "eq"](filter.field, filter.value);
   }
@@ -17,7 +17,7 @@ export async function getBookings({ filter, sortBy, page }) {
     });
   }
   if (page) {
-    console.log(20, page);
+    // console.log(20, page);
     const from = (page - 1) * 10;
     const to = from + 10 - 1;
     query = query.range(from, to);
@@ -122,5 +122,17 @@ export async function deleteBooking(id) {
     console.error(error);
     throw new Error("Booking could not be deleted");
   }
+  return data;
+}
+
+//
+export async function createBooking(newBooking) {
+  console.log(newBooking, 130);
+  const { data, error } = await supabase.from("bookings").insert(newBooking);
+
+  if (error) {
+    console.log(error.message);
+  }
+  console.log(data, newBooking);
   return data;
 }
