@@ -4,7 +4,7 @@ import { getBooking } from "../../services/apiBookings";
 
 export function useBooking() {
   const { id } = useParams();
-  console.log(id, "booking.js", 7);
+  // console.log(id, "booking.js", 7);
   const {
     isLoading,
     data: booking,
@@ -14,6 +14,6 @@ export function useBooking() {
     queryFn: () => getBooking(id),
     retry: false,
   });
-  console.log(booking, 17, "booking.js");
+  // console.log(booking, 17, "booking.js");
   return { isLoading, error, booking};
 }
