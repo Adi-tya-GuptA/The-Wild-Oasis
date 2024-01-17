@@ -11,7 +11,7 @@ export async function getCabin(id) {
     console.error(error);
     throw new Error("cabin not found");
   }
-
+  // console.log(data);
   return data;
 }
 

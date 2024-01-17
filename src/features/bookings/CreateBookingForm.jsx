@@ -134,7 +134,7 @@ function CreateBookingForm({ id, onCloseModal }) {
         >
           {cabins?.map((cabin) => (
             <option key={cabin.id} value={cabin.id}>
-              {cabin.maxCapacity}
+              {cabin.name}
             </option>
           ))}
         </StyledSelect>

@@ -19,6 +19,8 @@ import CheckinBooking from "./features/check-in-out/CheckinBooking";
 import ProtectedRout from "./ui/ProtectedRout";
 import { DarkModeProvider } from "./context/DarkModeToggleContext";
 import Signup from "./pages/Signup";
+import { useUser } from "./features/authentication/useUser";
+import CabinPage from "./features/cabins/CabinPage";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -29,6 +31,7 @@ const queryClient = new QueryClient({
 });
 
 function App() {
+  // const {user}=useUser();
   return (
     <DarkModeProvider>
       <QueryClientProvider client={queryClient}>
@@ -50,6 +53,7 @@ function App() {
               <Route path="bookings/:id" element={<Booking />} />
               <Route path="checkin/:id" element={<CheckinBooking />} />
               <Route path="cabins" element={<Cabins />} />
+              <Route path="cabins/:id" element={<CabinPage/>} />
               <Route path="users" element={<Users />} />
               <Route path="settings" element={<Settings />} />
               <Route path="account" element={<Account />} />
@@ -57,7 +61,7 @@ function App() {
             </Route>
 
             <Route path="login" element={<Login />} />
-            <Route path="signup" element={<Signup/>} />
+            <Route path="signup" element={<Signup />} />
             <Route path="*" element={<PageNotFound />} />
           </Routes>
         </BrowserRouter>
