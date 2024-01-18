@@ -43,7 +43,7 @@ function BookingTable() {
         />
 
         <Table.Footer>
-          {user.user_metadata.role === "guest" && <p>i am guest</p>}
+          {/* {user.user_metadata.role === "guest" && <p>i am guest</p>} */}
           <Pagination count={count} />
         </Table.Footer>
       </Table>

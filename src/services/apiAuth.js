@@ -1,6 +1,13 @@
 import supabase, { supabaseUrl } from "./supabase";
 
-export async function signup({ fullName, email, password, role = "guest" }) {
+export async function signup({
+  fullName,
+  email,
+  password,
+  role = "guest",
+  guestId,
+  nationalId,
+}) {
   const { data, error } = await supabase.auth.signUp({
     email,
     password,
@@ -10,11 +17,13 @@ export async function signup({ fullName, email, password, role = "guest" }) {
         fullName,
         avatar: "",
         role,
+        guestId,
+        nationalId,
       },
     },
   });
   if (error) throw new Error(error.message);
-  
+
   return data;
 }
 
@@ -45,10 +54,17 @@ export async function logout() {
   if (error) throw new Error(error.message);
 }
 
-export async function updateCurrentUser({ password, fullName, avatar }) {
+
+export async function updateCurrentUser({
+  password,
+  fullName,
+  avatar,
+
+}) {
   let updateData;
   if (password) updateData = { password };
   if (fullName) updateData = { data: { fullName } };
+  // if (updates) updateData = { data: { updates } };
   const { data, error } = await supabase.auth.updateUser(updateData);
   if (error) throw new Error(error.message);
   if (!avatar) return data;

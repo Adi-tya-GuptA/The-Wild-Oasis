@@ -51,6 +51,7 @@ const CabinReviews = styled.span`
 
 const StarIcon = styled.span`
   margin-right: 4px;
+  /* font-size: 1.rem; */
 `;
 
 const CabinInfo = styled.div`
@@ -115,7 +116,7 @@ export default function CabinPage() {
               <strong>Discount:</strong>{" "}
               <CabinDiscount>{discount}% OFF</CabinDiscount>
             </div>
-            <div>
+            <div style={{ display: "flex", gap: "1rem" }}>
               <strong>Reviews:</strong>{" "}
               <CabinReviews>
                 {renderStars()} ({reviews} stars)
