@@ -3,8 +3,9 @@ import { useQuery } from "@tanstack/react-query";
 import { getCabin } from "../../services/apiCabins";
 import { useParams } from "react-router-dom";
 
-export function useCabin() {
-  const { id } = useParams();
+export function useCabin(cabinId) {
+  let { id } = useParams();
+  id = id || cabinId;
   const {
     isLoading,
     data: cabin,

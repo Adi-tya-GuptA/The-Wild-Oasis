@@ -94,12 +94,22 @@ function MainNav() {
             </StyledNavLink>
           </li>
         )}
-        <li>
-          <StyledNavLink to="/guests">
-            <HiOutlineUser />
-            <span>Guests</span>
-          </StyledNavLink>
-        </li>
+        {!user?.user_metadata.role === "guest" && (
+          <li>
+            <StyledNavLink to="/guests">
+              <HiOutlineUser />
+              <span>Guests</span>
+            </StyledNavLink>
+          </li>
+        )}
+        {user?.user_metadata.role === "guest" && (
+          <li>
+            <StyledNavLink to="/about">
+              <HiOutlineUser />
+              <span>About</span>
+            </StyledNavLink>
+          </li>
+        )}
       </NavList>
     </nav>
   );

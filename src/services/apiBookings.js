@@ -126,6 +126,18 @@ export async function deleteBooking(id) {
 }
 
 //
+export async function getMyBooking(id) {
+  let { data: bookings, error } = await supabase
+    .from("bookings")
+    .select("*")
+    .eq("guestId", id);
+  if (error) {
+    // console.error(error);
+    throw new Error("Booking could not found");
+  }
+
+  return bookings;
+}
 export async function createBooking(newBooking) {
   console.log(newBooking, 130);
   const { data, error } = await supabase.from("bookings").insert(newBooking);

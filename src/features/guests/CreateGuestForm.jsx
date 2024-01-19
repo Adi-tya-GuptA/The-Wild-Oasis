@@ -1,3 +1,5 @@
+/* eslint-disable */
+
 import { useForm } from "react-hook-form";
 
 // import { useCountries } from 'hooks/useCountries';
@@ -11,6 +13,9 @@ import Button from "../../ui/Button";
 import styled from "styled-components";
 
 import { useUser } from "../authentication/useUser";
+import { useGuestUser } from "./useGuestUser";
+import { useGuest } from "./useGuest";
+import { useState } from "react";
 // import { updateCurrentUser } from "../../services/apiAuth";
 // import { updateUser } from "../../services/apiGuests";
 
@@ -22,10 +27,19 @@ const FormSelect = styled(Select)`
 // function CreateGuest({ onSuccessNewGuest, setIsOpenForm }) {
 function CreateGuestForm({ onSuccessNewGuest, oncloseModal }) {
   // const { isLoading: isLoadingCountries, countries } = useCountries();
+  const { guest, isLoading: guestLoading } = useGuestUser();
+  // console.log(guest);
+  // if (guest) {
+  //   console.log("guest found");
+  //   const id = guest[0]?.id;
+  //   const { guest: guestDetail } = useGuest(id);
+  //   console.log(guestDetail, 34);
+  // }
   const { isCreating, createGuest } = useCreateGuest();
   const { user } = useUser();
   const { register, handleSubmit, formState, reset } = useForm();
   const { errors } = formState;
+  const {action,setAction}=useState(false);
 
   // if (isLoadingCountries) return <Spinner />;
 
@@ -110,15 +124,19 @@ function CreateGuestForm({ onSuccessNewGuest, oncloseModal }) {
       </FormRow>
 
       <FormRow>
-        <Button
-          variation="secondary"
-          type="reset"
-          disabled={isCreating}
-          onClick={() => oncloseModal?.()}
-        >
-          Cancel
-        </Button>
-        <Button disabled={isCreating}>Add guest details</Button>
+        {!guest || (
+          <>
+            <Button
+              variation="secondary"
+              type="reset"
+              disabled={isCreating}
+              onClick={() => oncloseModal?.()}
+            >
+              Cancel
+            </Button>
+            <Button disabled={isCreating}>Add guest details</Button>
+          </>
+        )}
       </FormRow>
     </Form>
   );

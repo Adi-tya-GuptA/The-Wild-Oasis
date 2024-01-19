@@ -15,7 +15,11 @@ export default function Guests() {
   return (
     <>
       <Row type="horizontal">
-        <Heading as="h1">All Guests</Heading>
+        {user.user_metadata.role === "guest" ? (
+          <Heading as="h1">Guest Details</Heading>
+        ) : (
+          <Heading as="h1">All Guests</Heading>
+        )}
       </Row>
       <Row>
         {!(user?.user_metadata?.role === "guest") ? (

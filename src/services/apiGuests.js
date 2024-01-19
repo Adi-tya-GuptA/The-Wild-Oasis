@@ -39,3 +39,15 @@ export async function getGuests({ page = 1 } = {}) {
 
   return { data, count };
 }
+export async function getUserGuest(Id) {
+  // console.log(Id);
+  const { data: guest, error } = await supabase
+    .from("guests")
+    .select("id")
+    .eq("userId", Id);
+  if (error) {
+    console.log(`guest with ${Id} not found`);
+  }
+  // console.log(guest);
+  return guest;
+}

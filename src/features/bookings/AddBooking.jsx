@@ -2,7 +2,7 @@ import Button from "../../ui/Button";
 import Modal from "../../ui/Modal";
 import CreateBookingForm from "./CreateBookingForm";
 
-function AddBooking({ id }) {
+function AddBooking({ id ,cabinID}) {
   return (
     <div>
       <Modal>
@@ -10,7 +10,7 @@ function AddBooking({ id }) {
           <Button>Add Booking</Button>
         </Modal.Open>
         <Modal.Window name="cabin-form">
-          <CreateBookingForm id={id} onCloseModal={Modal.close} />
+          <CreateBookingForm id={id} cabinID={cabinID} onCloseModal={Modal.close} />
         </Modal.Window>
       </Modal>
     </div>

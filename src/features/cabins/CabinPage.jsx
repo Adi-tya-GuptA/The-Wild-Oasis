@@ -6,8 +6,12 @@ import styled from "styled-components";
 import Spinner from "../../ui/Spinner";
 import Heading from "../../ui/Heading";
 import Row from "../../ui/Row";
-import Button from "../../ui/Button";
+
 import AddBooking from "../bookings/AddBooking";
+import { useGuestUser } from "../guests/useGuestUser";
+import { useGuest } from "../guests/useGuest";
+import Button from "../../ui/Button";
+import { useNavigate } from "react-router-dom";
 // import { styled } from "@tanstack/react-query-devtools/build/lib/utils";
 const PageContainer = styled.div`
   display: flex;
@@ -72,9 +76,20 @@ const CabinDiscount = styled.span`
 
 export default function CabinPage() {
   const { isLoading, cabin } = useCabin();
-  console.log(cabin);
+  const navigate = useNavigate();
+  const { guest, isLoading: guestLoading } = useGuestUser();
+  console.log(guest, "guest");
+  if (Array.isArray(guest) && guest.length === 0) {
+    console.log("Guest is an empty array");
+  } else {
+    console.log("Guest is not an empty array");
+  }
   const moveBack = useMoveBack();
-  if (isLoading) return <Spinner />;
+  const id = guest[0]?.id || 982;
+  const { isLoading: isLoading1, guest: guestDetail } = useGuest(id);
+  if (guestLoading) return <Spinner />;
+  console.log(guestDetail);
+  if (isLoading || isLoading1) return <Spinner />;
   const renderStars = () => {
     const stars = [];
     const roundedReviews = Math.round(reviews);
@@ -86,7 +101,7 @@ export default function CabinPage() {
   const {
     image,
     name,
-    id,
+    id: cabinID,
     maxCapacity,
     description,
     discount,
@@ -125,7 +140,16 @@ export default function CabinPage() {
           </CabinInfo>
         </CabinDetails>
       </PageContainer>
-      <AddBooking />
+      {!(Array.isArray(guest) && guest.length === 0) ? (
+        <AddBooking id={id} cabinID={cabinID} />
+      ) : (
+        <>
+          <Heading as="h2" style={{ margin: "10px" }}>
+            Compete you details to book cabin
+          </Heading>
+          <Button onClick={() => navigate("/guests")}>Complete Booking</Button>
+        </>
+      )}
     </div>
   );
 }

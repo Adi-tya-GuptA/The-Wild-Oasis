@@ -21,6 +21,7 @@ import { DarkModeProvider } from "./context/DarkModeToggleContext";
 import Signup from "./pages/Signup";
 import { useUser } from "./features/authentication/useUser";
 import CabinPage from "./features/cabins/CabinPage";
+import About from "./pages/About";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -53,11 +54,12 @@ function App() {
               <Route path="bookings/:id" element={<Booking />} />
               <Route path="checkin/:id" element={<CheckinBooking />} />
               <Route path="cabins" element={<Cabins />} />
-              <Route path="cabins/:id" element={<CabinPage/>} />
+              <Route path="cabins/:id" element={<CabinPage />} />
               <Route path="users" element={<Users />} />
               <Route path="settings" element={<Settings />} />
               <Route path="account" element={<Account />} />
               <Route path="guests" element={<Guests />} />
+              <Route path="about" element={<About />} />
             </Route>
 
             <Route path="login" element={<Login />} />

@@ -4,7 +4,7 @@ import { getGuest } from "../../services/apiGuests";
 
 export function useGuest(id) {
   // const { id } = useParams();
-  console.log(id, "guest.js", 7);
+  // console.log(id, "guest.js", 7);
   const {
     isLoading,
     data: guest,

@@ -9,13 +9,15 @@ import FormRow from "../../ui/FormRow";
 // import React, { useState } from "react";
 
 import "react-datepicker/dist/react-datepicker.css";
-import { useGuest } from "../guests/useGuest";
+// import { useGuest } from "../guests/useGuest";
 import { useCabins } from "../cabins/useCabins";
 
 import styled from "styled-components";
 // import { useEffect } from "react";
 import { subtractDates } from "../../utils/helpers";
 import { useCreateBooking } from "./useCreatebooking";
+import { useGuest } from "../guests/useGuest";
+
 // import { useCabin } from "../cabins/useCabin";
 // import { useEffect } from "react";
 
@@ -33,9 +35,9 @@ const StyledSelect = styled.select`
   box-shadow: var(--shadow-sm);
 `;
 // setShowForm={setShowForm} showForm={showForm}
-function CreateBookingForm({ id, onCloseModal }) {
+function CreateBookingForm({ id, cabinID, onCloseModal }) {
   const { cabins } = useCabins();
-  // const { guest } = useGuest(id);
+  // const {guest}=useGuest(id);
   const { isCreating, CreateBooking } = useCreateBooking();
   const { register, handleSubmit, reset } = useForm();
 
@@ -44,7 +46,8 @@ function CreateBookingForm({ id, onCloseModal }) {
   function onSubmit(data) {
     // e.preventDefault(); // Remove this line
     console.log(data);
-    const { startDate, endDate, numGuests, cabinId, observations } = data;
+    let { startDate, endDate, numGuests, cabinId, observations } = data;
+    cabinId = cabinID || cabinId;
     const numNights = subtractDates(endDate, startDate);
     const cabin = cabins.find((cabin) => cabin.id === cabinId);
     // console.log(cabins,cabin)
@@ -126,7 +129,7 @@ function CreateBookingForm({ id, onCloseModal }) {
 
       <FormRow label="Select Cabin">
         <StyledSelect
-          // value={cabinId}
+          defaultValue={cabinID}
           // onChange={(e) => setCabinId(e.target.value)}
           id="cabinId"
           disabled={isCreating}

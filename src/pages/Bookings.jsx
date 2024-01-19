@@ -3,6 +3,7 @@ import Heading from "../ui/Heading";
 import Row from "../ui/Row";
 import BookingTableOperations from "../features/bookings/BookingTableOperations";
 import { useUser } from "../features/authentication/useUser";
+import MyBookings from "../features/bookings/MyBookings";
 
 function Bookings() {
   const { user } = useUser();
@@ -10,10 +11,9 @@ function Bookings() {
     <>
       <Row type="horizontal">
         <Heading as="h1">All bookings</Heading>
-        <BookingTableOperations />
+        {user.user_metadata.role === "guest" || <BookingTableOperations />}
       </Row>
-      <BookingTable />
-      {user.user_metadata.role === "user" && <p>hello i am user</p>}
+      {user.user_metadata.role === "guest" ? <MyBookings /> : <BookingTable />}
     </>
   );
 }
