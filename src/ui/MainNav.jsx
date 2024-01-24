@@ -14,6 +14,10 @@ const NavList = styled.ul`
   display: flex;
   flex-direction: column;
   gap: 0.8rem;
+  @media only screen and (max-width: 480px) {
+    flex-direction: row;
+    gap: 0.5rem;
+  }
 `;
 
 const StyledNavLink = styled(NavLink)`
@@ -28,6 +32,11 @@ const StyledNavLink = styled(NavLink)`
     font-weight: 500;
     padding: 1.2rem 2.4rem;
     transition: all 0.3s;
+    @media only screen and (max-width: 480px) {
+      gap: 0.7rem;
+      font-size: 1rem;
+      padding: 0.8rem 1.5rem;
+    }
   }
 
   /* This works because react-router places the active class on the active NavLink */
@@ -52,6 +61,21 @@ const StyledNavLink = styled(NavLink)`
   &.active:link svg,
   &.active:visited svg {
     color: var(--color-brand-600);
+  }
+  @media only screen and (max-width: 480px) {
+    &:link,
+    &:visited {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.2rem;
+
+      color: var(--color-grey-600);
+      font-size: 0.8rem;
+      font-weight: 500;
+      padding: 1.2rem 2.4rem;
+      transition: all 0.3s;
+    }
   }
 `;
 
@@ -78,14 +102,7 @@ function MainNav() {
             <span>Cabins</span>
           </StyledNavLink>
         </li>
-        {user.user_metadata.role === "guest" || (
-          <li>
-            <StyledNavLink to="/users">
-              <HiOutlineUsers />
-              <span>Users</span>
-            </StyledNavLink>
-          </li>
-        )}
+
         {user.user_metadata.role === "guest" || (
           <li>
             <StyledNavLink to="/settings">
@@ -94,7 +111,7 @@ function MainNav() {
             </StyledNavLink>
           </li>
         )}
-        {!user?.user_metadata.role === "guest" && (
+        {user?.user_metadata.role === "guest" || (
           <li>
             <StyledNavLink to="/guests">
               <HiOutlineUser />

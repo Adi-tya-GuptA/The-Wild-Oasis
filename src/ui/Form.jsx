@@ -20,6 +20,12 @@ const Form = styled.form`
     
   overflow: hidden;
   font-size: 1.4rem;
+
+  /* Media query for mobile screens */
+  @media only screen and (max-width: 480px) {
+    width: 70%;
+    /* background-color:yellow; */
+  }
 `;
 
 Form.defaultProps = {

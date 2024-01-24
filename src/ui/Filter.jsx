@@ -34,13 +34,18 @@ const FilterButton = styled.button`
     background-color: var(--color-brand-600);
     color: var(--color-brand-50);
   }
+  @media only screen and (max-width: 480px) {
+    font-size: .7rem;
+    font-weight: 400;
+    padding: 0.34rem 0.5rem;
+  }
 `;
 
 export default function Filter({ filterField, options }) {
   const [searchParams, setSearchParams] = useSearchParams();
   function handleClick(val) {
     searchParams.set(filterField, val);
-    if (searchParams.get("page")) searchParams.set("page", 1 );
+    if (searchParams.get("page")) searchParams.set("page", 1);
     setSearchParams(searchParams);
   }
   console.log(options[0].value);

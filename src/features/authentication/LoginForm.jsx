@@ -38,7 +38,7 @@ function LoginForm() {
   }
 
   return (
-    <Form onSubmit={handleSubmit}>
+    <Form onSubmit={handleSubmit}  >
       <FormRow label="Email address" orientation="vertical">
         <Input
           type="email"

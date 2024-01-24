@@ -3,6 +3,9 @@ import { useDarkMode } from "../context/DarkModeToggleContext";
 
 const StyledLogo = styled.div`
   text-align: center;
+  @media only screen and (max-width: 480px){
+    display: none;
+  }
 `;
 
 const Img = styled.img`

@@ -1,13 +1,14 @@
 import { useUser } from "../features/authentication/useUser";
 import DashboardFilter from "../features/dashboard/DashboardFilter";
 import DashboardLayout from "../features/dashboard/DashboardLayout";
-import CreateGuestForm from "../features/guests/CreateGuestForm";
+import CreateGuestForm1 from "../features/guests/CreateGuestForm1";
 import Heading from "../ui/Heading";
 import Row from "../ui/Row";
 
 function Dashboard() {
   const { user } = useUser();
-  console.log(user);
+  const guestSession = user?.user_metadata.role === "guest";
+  // console.log(user);
   
   return (
     <>
@@ -18,7 +19,7 @@ function Dashboard() {
       
       {!(user?.user_metadata.role === "guest") && <DashboardLayout />}
       
-      {user?.user_metadata.role === "guest" && <CreateGuestForm />}
+      {user?.user_metadata.role === "guest" && <CreateGuestForm1 guestSession={guestSession}/>}
     </>
   );
 }

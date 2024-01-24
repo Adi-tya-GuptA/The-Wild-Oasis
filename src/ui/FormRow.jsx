@@ -35,6 +35,10 @@ const StyledFormRow = styled.div`
         gap: 1.2rem;
       }
     `}
+  @media only screen and (max-width: 480px) {
+    width: 70%;
+    /* background-color:yellow; */
+  }
 `;
 
 const Label = styled.label`
