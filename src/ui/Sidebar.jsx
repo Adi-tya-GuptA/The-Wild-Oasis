@@ -12,18 +12,16 @@ const StyledSidebar = styled.aside`
   display: flex;
   flex-direction: column;
   gap: 3.2rem;
-  @media only screen and (max-width: 480px) {
-    position: absolute;
-    background-color: var(--color-grey-0);
-  padding: 1.2rem 1.4rem;
-  border-right: 1px solid var(--color-grey-100);
-
-  grid-row: 1 / -1;
-  display: flex;
-  flex-direction: column;
-  gap: 1.2rem;
-  bottom: 0;
+  @media only screen and (max-width: 480px){
+    /* grid-row: 1 / 2; Starts at row 1 and ends at row 2 */
+      grid-row: 3/ 5; /* Starts at column 1 and ends at column 2 */
+      /* gap: 1.2rem; */
+      position: sticky;
+      bottom: 0;
+      z-index: 100000;
+      padding: 1.6rem;
   }
+ 
 `;
 
 function Sidebar() {

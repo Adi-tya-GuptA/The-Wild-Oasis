@@ -9,22 +9,19 @@ const StyledAppLayout = styled.div`
   grid-template-rows: auto 1fr;
   height: 100vh;
   @media only screen and (max-width: 480px) {
-    /* width: 70%; */
-    html {
-      font-size: 5rem;
-    }
-    grid-template-columns: 1fr;
-    grid-template-rows: auto 1fr;
-    position: relative;
-    height: 100vh;
+    height: fit-content;
+    grid-template-columns: auto ;
+    /* grid-row: 1/span 3; */
+    position: absolute;
+    
   }
 `;
 
 const Main = styled.main`
   background-color: var(--color-grey-50);
   padding: 4rem 4.8rem 6.4rem;
-  overflow: scroll;
   @media only screen and (max-width: 480px) {
+    overflow: scroll;
     padding: 2.4 2.8rem 3.4rem;
     background-color: var(--color-grey-50);
   }
@@ -37,7 +34,10 @@ const Container = styled.div`
   flex-direction: column;
   gap: 3.2rem;
   @media only screen and (max-width: 480px) {
-    max-width: 70rem;
+    /* min-width: 70rem; */
+    height: fit-content;
+    gap: 2.2rem;
+    
   }
 `;
 

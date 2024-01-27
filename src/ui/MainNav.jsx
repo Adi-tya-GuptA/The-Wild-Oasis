@@ -63,6 +63,12 @@ const StyledNavLink = styled(NavLink)`
     color: var(--color-brand-600);
   }
   @media only screen and (max-width: 480px) {
+    & svg {
+    width: 1.8rem;
+    height: 1.8rem;
+    color: var(--color-grey-400);
+    transition: all 0.3s;
+  }
     &:link,
     &:visited {
       display: flex;
