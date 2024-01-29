@@ -25,6 +25,7 @@ const Form = styled.form`
   @media only screen and (max-width: 480px) {
     width: 70%;
     /* background-color:yellow; */
+    margin: 0 auto;
   }
 `;
 

@@ -18,6 +18,12 @@ const StyledTodayItem = styled.li`
 
   &:first-child {
     border-top: 1px solid var(--color-grey-100);
+    @media only screen and (max-width: 480px){
+    
+      grid-template-columns: 9rem 1fr;
+      grid-template-rows: 3rem 3rem;
+      /* gap: 5rem; */
+    }
   }
 `;
 

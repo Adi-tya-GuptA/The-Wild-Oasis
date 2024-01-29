@@ -15,9 +15,9 @@ const StyledDashboardLayout = styled.div`
   grid-template-rows: auto 34rem auto;
   gap: 2.4rem;
   @media only screen and (max-width: 480px){
-    grid-template-columns: 1fr 1fr ;
-  grid-template-rows: auto ;
-  gap: 1.4rem;
+    display: flex;
+    flex-direction: column;
+    margin: 0 auto;
   }
 `;
 

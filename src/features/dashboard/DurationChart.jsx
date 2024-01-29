@@ -9,6 +9,8 @@ import {
   Tooltip,
 } from "recharts";
 import { useDarkMode } from "../../context/DarkModeToggleContext";
+import { useState } from "react";
+import { useEffect } from "react";
 
 const ChartBox = styled.div`
   /* Box */
@@ -25,6 +27,10 @@ const ChartBox = styled.div`
 
   & .recharts-pie-label-text {
     font-weight: 600;
+  }
+  @media only screen and (max-width: 480px){
+    padding: 1.4rem 2rem;
+    /* width: 80%; */
   }
 `;
 
@@ -142,20 +148,31 @@ function prepareData(startData, stays) {
 
 function DurationChart({ confirmedStays }) {
   const { isDarkMode } = useDarkMode();
+  const [chartHeight, setChartHeight] = useState(window.innerWidth > 600 ? 240 : 150);
   const startData = isDarkMode ? startDataDark : startDataLight;
   const data = prepareData(startData, confirmedStays);
+  useEffect(() => {
+    const handleResize = () => {
+      setChartHeight(window.innerWidth > 600 ? 240 : 150);
+    };
 
+    window.addEventListener("resize", handleResize);
+
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, []);
   return (
     <ChartBox>
       <Heading as="h2">Stay duration summary</Heading>
-      <ResponsiveContainer width="100%" height={240}>
+      <ResponsiveContainer width="100%" height={window.innerWidth>600?240:150}>
         <PieChart>
           <Pie
             data={data}
             nameKey="duration"
             dataKey="value"
-            innerRadius={85}
-            outerRadius={110}
+            innerRadius={window.innerWidth>600?85:35}
+            outerRadius={window.innerWidth>600?110:50}
             cx="40%"
             cy="50%"
             paddingAngle={3}
@@ -174,7 +191,7 @@ function DurationChart({ confirmedStays }) {
             align="right"
             width="30%"
             layout="vertical"
-            iconSize={15}
+            iconSize={window.innerWidth>600?15:7}
             iconType="circle"
           />
         </PieChart>

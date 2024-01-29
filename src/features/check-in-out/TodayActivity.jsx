@@ -20,10 +20,12 @@ const StyledToday = styled.div`
   grid-column: 1 / span 2;
   padding-top: 2.4rem;
   @media only screen and (max-width: 480px) {
+    width: 80%;
+    margin: 0 auto;
     padding: 2rem;
     display: flex;
     flex-direction: column;
-    gap: 1.4rem;
+    gap: 1.5rem;
     grid-column: 1 / span 2;
     padding-top: 1.4rem;
   }
@@ -39,6 +41,9 @@ const TodayList = styled.ul`
   }
   scrollbar-width: none;
   -ms-overflow-style: none;
+  @media only screen and (max-width: 480px) {
+    width: 70%;
+  }
 `;
 
 const NoActivity = styled.p`

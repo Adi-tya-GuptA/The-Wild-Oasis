@@ -13,12 +13,10 @@ const StyledStat = styled.div`
   column-gap: 1.6rem;
   row-gap: 0.4rem;
   @media only screen and (max-width: 480px){
-    padding: 1rem;
-  display: grid;
-  grid-template-columns: 3rem 1fr;
-  grid-template-rows: auto auto;
-  column-gap: 1.rem;
-  row-gap: 0.3rem;
+  display: flex;
+ width: 50%;
+ margin: 0 auto;
+ align-items: center;
   }
 `;
 
