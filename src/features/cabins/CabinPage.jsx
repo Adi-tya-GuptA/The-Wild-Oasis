@@ -11,7 +11,11 @@ import AddBooking from "../bookings/AddBooking";
 import { useGuestUser } from "../guests/useGuestUser";
 import { useGuest } from "../guests/useGuest";
 import Button from "../../ui/Button";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
+import supabase from "../../services/supabase";
+import { useUser } from "../authentication/useUser";
+import { useEffect } from "react";
+import { useState } from "react";
 // import { styled } from "@tanstack/react-query-devtools/build/lib/utils";
 const PageContainer = styled.div`
   display: flex;
@@ -77,18 +81,47 @@ const CabinDiscount = styled.span`
 export default function CabinPage() {
   const { isLoading, cabin } = useCabin();
   const navigate = useNavigate();
+  let { id:cabinId } = useParams();
   const { guest, isLoading: guestLoading } = useGuestUser();
+  const [Guest, setGuest] = useState();
   console.log(guest, "guest");
   if (Array.isArray(guest) && guest.length === 0) {
     console.log("Guest is an empty array");
   } else {
     console.log("Guest is not an empty array");
   }
+  const { user } = useUser();
+  const Id = user.id;
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const { data: guest, error } = await supabase
+          .from("guests")
+          .select("id")
+          .eq("userId", Id);
+
+        if (error) {
+          console.log(`Error fetching guest with userId ${Id}:`, error.message);
+        } else {
+          console.log("Guest data:", guest);
+          setGuest(guest);
+        }
+      } catch (e) {
+        console.error(
+          "An error occurred while fetching guest data:",
+          e.message
+        );
+      }
+    };
+
+    fetchData(); // Invoke the async function
+  }, [user.id, Id,guest,cabinId]);
+  console.log(Guest, 118);
   const moveBack = useMoveBack();
-  const id = guest[0]?.id || 982;
+  const id = guest[0]?.id;
   const { isLoading: isLoading1, guest: guestDetail } = useGuest(id);
-  if (guestLoading) return <Spinner />;
   console.log(guestDetail);
+  if (guestLoading) return <Spinner />;
   if (isLoading || isLoading1) return <Spinner />;
   const renderStars = () => {
     const stars = [];

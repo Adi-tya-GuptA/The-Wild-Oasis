@@ -18,6 +18,7 @@ import { useGuest } from "./useGuest";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useCreateGuest1 } from "./useCreateGuest1";
+import supabase from "../../services/supabase";
 // import { updateCurrentUser } from "../../services/apiAuth";
 // import { updateUser } from "../../services/apiGuests";
 
@@ -29,11 +30,13 @@ function CreateGuestForm1({
   guestSession = false,
 }) {
   // const { isLoading: isLoadingCountries, countries } = useCountries();
-  const { isCreating, createGuest ,guest} = useCreateGuest1();
+  const { isCreating, createGuest } = useCreateGuest1();
   const { user } = useUser();
   const { register, handleSubmit, formState, reset, getValues } = useForm();
   const { errors } = formState;
   const [action, setAction] = useState(false);
+  const [guestDetail, setGuestDetail] = useState();
+  const [guest, setGuest] = useState();
   const navigate = useNavigate();
   // // if (isLoadingCountries) return
   // const { guest, isLoading: guestLoading } = useGuestUser();
@@ -54,7 +57,6 @@ function CreateGuestForm1({
   // // }, [action, guest]);
   // // // }
   // // // <Spinner />;
-  
 
   // // const countryOptions = countries.map((country) => {
   // //   return {
@@ -63,15 +65,65 @@ function CreateGuestForm1({
   // //   };
   // // });
   // // useEffect(()=>{},[user,guest,gues])
-  console.log(user.id, guestSession,guest);
-  let adhar;
+  const Id = user.id;
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const { data: guest, error } = await supabase
+          .from("guests")
+          .select("id")
+          .eq("userId", Id);
+
+        if (error) {
+          console.log(`Error fetching guest with userId ${Id}:`, error.message);
+        } else {
+          console.log("Guest data:", guest);
+          setGuest(guest);
+        }
+      } catch (e) {
+        console.error(
+          "An error occurred while fetching guest data:",
+          e.message
+        );
+      }
+    };
+
+    fetchData(); // Invoke the async function
+  }, [action, guestSession, user.id, Id]);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const { data: guest, error } = await supabase
+          .from("guests")
+          .select("id")
+          .eq("userId", Id);
+
+        if (error) {
+          console.log(`Error fetching guest with userId ${Id}:`, error.message);
+        } else {
+          console.log("Guest data:", guest);
+        }
+      } catch (e) {
+        console.error(
+          "An error occurred while fetching guest data:",
+          e.message
+        );
+      }
+    };
+
+    fetchData(); // Invoke the async function
+  }, [action, guestSession, user.id, Id]);
+
+  console.log(guestSession, guest);
   const handleAction = () => {
+    console.log(action);
     setAction((val) => true);
-    
   };
+  console.log(action);
   const onSubmit = function (data) {
     const { nationalId } = data;
-    adhar = nationalId;
+    // adhar = nationalId;
     const userId = user.id;
     console.log(data, userId);
     createGuest(
@@ -89,81 +141,87 @@ function CreateGuestForm1({
       }
     );
   };
-  console.log(adhar);
+  // console.log(adhar);
 
   return (
-    <Form type="modal" onSubmit={handleSubmit(onSubmit)}>
-      <FormRow label="Full name" error={errors?.fullName?.message}>
-        <Input
-          type="text"
-          id="name"
-          defaultValue={
-            user?.user_metadata?.fullName || getValues("name") || " "
-          }
-          disabled={isCreating || action}
-          {...register("name", { required: "This field is required" })}
-        />
-      </FormRow>
+    <>
+      {guest?.length>0 ? (
+        <p>You have completed your details</p>
+      ) : (
+        <Form type="modal" onSubmit={handleSubmit(onSubmit)}>
+          <FormRow label="Full name" error={errors?.fullName?.message}>
+            <Input
+              type="text"
+              id="name"
+              defaultValue={
+                user?.user_metadata?.fullName || getValues("name") || " "
+              }
+              disabled={isCreating || action}
+              {...register("name", { required: "This field is required" })}
+            />
+          </FormRow>
 
-      <FormRow label="Email address" error={errors?.email?.message}>
-        <Input
-          type="email"
-          id="email"
-          defaultValue={user?.email || getValues("email") || " "}
-          disabled={isCreating || action}
-          {...register("email", {
-            required: "Email address is required",
-            pattern: {
-              // google: email regex JavaScript
-              value: /\S+@\S+\.\S+/,
-              message: "Please specify a valid email",
-            },
-          })}
-        />
-      </FormRow>
+          <FormRow label="Email address" error={errors?.email?.message}>
+            <Input
+              type="email"
+              id="email"
+              defaultValue={user?.email || getValues("email") || " "}
+              disabled={isCreating || action}
+              {...register("email", {
+                required: "Email address is required",
+                pattern: {
+                  // google: email regex JavaScript
+                  value: /\S+@\S+\.\S+/,
+                  message: "Please specify a valid email",
+                },
+              })}
+            />
+          </FormRow>
 
-      <FormRow label="Mobile No" error={errors?.mobileNo?.message}>
-        <Input
-          type="text"
-          id="mobileNo"
-          defaultValue={getValues("mobileNo") || " "}
-          disabled={isCreating || action}
-          {...register("mobileNo")}
-        />
-      </FormRow>
-      <FormRow label="Adhar Id" error={errors?.nationalId?.message}>
-        <Input
-          type="number"
-          id="nationalId"
-          disabled={isCreating || action}
-          defaultValue={getValues("nationalId")}
-          {...register("nationalId", {
-            required: "Adhar Id is required",
-            pattern: {
-              // google: email regex JavaScript
-              // value: /\S+@\S+\.\S+/,
-              message: "Please specify a valid ID",
-            },
-          })}
-        />
-      </FormRow>
+          <FormRow label="Mobile No" error={errors?.mobileNo?.message}>
+            <Input
+              type="text"
+              id="mobileNo"
+              defaultValue={getValues("mobileNo") || " "}
+              disabled={isCreating || action}
+              {...register("mobileNo")}
+            />
+          </FormRow>
+          <FormRow label="Adhar Id" error={errors?.nationalId?.message}>
+            <Input
+              type="number"
+              id="nationalId"
+              disabled={isCreating || action}
+              defaultValue={getValues("nationalId")}
+              {...register("nationalId", {
+                required: "Adhar Id is required",
+                pattern: {
+                  // google: email regex JavaScript
+                  // value: /\S+@\S+\.\S+/,
+                  message: "Please specify a valid ID",
+                },
+              })}
+            />
+          </FormRow>
 
-      <FormRow>
-        {action || (
-          <>
-            <Button
-              variation="secondary"
-              type="reset"
-              disabled={isCreating}
-              onClick={() => oncloseModal?.()}
-            >
-              Cancel
-            </Button>
-            <Button disabled={isCreating}>Add guest details</Button>
-          </>
-        )}
-      </FormRow>
-    </Form>
+          <FormRow>
+            {action || (
+              <>
+                <Button
+                  variation="secondary"
+                  type="reset"
+                  disabled={isCreating}
+                  onClick={() => oncloseModal?.()}
+                >
+                  Cancel
+                </Button>
+                <Button disabled={isCreating}>Add guest details</Button>
+              </>
+            )}
+          </FormRow>
+        </Form>
+      )}
+    </>
   );
 }
 
