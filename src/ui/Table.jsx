@@ -8,6 +8,9 @@ const StyledTable = styled.div`
   background-color: var(--color-grey-0);
   border-radius: 7px;
   overflow: hidden;
+  @media only screen and (max-width: 480px){
+    font-size: 0.7rem;
+  }
 `;
 
 const CommonRow = styled.header`

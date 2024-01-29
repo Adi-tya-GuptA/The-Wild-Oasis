@@ -12,12 +12,12 @@ const StyledStat = styled.div`
   grid-template-rows: auto auto;
   column-gap: 1.6rem;
   row-gap: 0.4rem;
-  @media only screen and (max-width: 480px) {
+  /* @media only screen and (max-width: 480px) {
     display: flex;
     width: 80%;
     margin: 0 auto;
     align-items: center;
-  }
+  } */
 `;
 
 const Icon = styled.div`

@@ -17,6 +17,14 @@ const P = styled.p`
   & span {
     font-weight: 600;
   }
+  @media only screen and (max-width: 480px) {
+    font-size: 0.9rem;
+    margin-left: 0.5rem;
+
+    & span {
+      font-weight: 500;
+    }
+  }
 `;
 
 const Buttons = styled.div`
@@ -56,6 +64,30 @@ const PaginationButton = styled.button`
   &:hover:not(:disabled) {
     background-color: var(--color-brand-600);
     color: var(--color-brand-50);
+  }
+  @media only screen and (max-width: 480px) {
+    font-weight: 300;
+    font-size: 0.7rem;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.3rem;
+    padding: 0.4rem 0.8rem;
+    transition: all 0.3s;
+
+    &:has(span:last-child) {
+      padding-left: 0.3rem;
+    }
+
+    &:has(span:first-child) {
+      padding-right: 0.3rem;
+    }
+
+    & svg {
+      height: 1rem;
+      width: 1rem;
+    }
   }
 `;
 

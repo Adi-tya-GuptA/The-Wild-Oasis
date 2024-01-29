@@ -11,6 +11,12 @@ const Tag = styled.span`
   /* Make these dynamic, based on the received prop */
   color: var(--color-${(props) => props.type}-700);
   background-color: var(--color-${(props) => props.type}-100);
+  @media only screen and (max-width: 480px){
+    font-size: .6rem;
+  font-weight: 500;
+  padding: 0.3rem .7rem;
+  border-radius: 80px;
+  }
 `;
 
 export default Tag;

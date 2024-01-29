@@ -24,6 +24,9 @@ const Cabin = styled.div`
   font-weight: 600;
   color: var(--color-grey-600);
   font-family: "Sono";
+  @media only screen and (max-width: 480px){
+    font-size: .5rem;
+  }
 `;
 
 const Stacked = styled.div`
@@ -39,6 +42,10 @@ const Stacked = styled.div`
     color: var(--color-grey-500);
     font-size: 1.2rem;
   }
+  @media only screen and (max-width: 480px){
+    font-size: .5rem;
+  }
+
 `;
 
 const Amount = styled.div`
@@ -68,18 +75,18 @@ function BookingRow({
     "checked-in": "green",
     "checked-out": "silver",
   };
-  console.log(guestName,email);
+  // console.log(guestName,email);
 
   return (
     <Table.Row>
-      <Cabin>{cabinName}</Cabin>
+  {window.innerWidth > 600 &&    <Cabin>{cabinName}</Cabin>}
 
       <Stacked>
         <span>{guestName}</span>
-        <span>{email}</span>
+       {window.innerWidth > 600 &&  <span>{email}</span>}
       </Stacked>
 
-      <Stacked>
+      {window.innerWidth>600&&<Stacked>
         <span>
           {isToday(new Date(startDate))
             ? "Today"
@@ -91,7 +98,7 @@ function BookingRow({
           {format(new Date(endDate), "MMM dd yyyy")}
         </span>
       </Stacked>
-
+}
       <Tag type={statusToTagName[status]}>{status.replace("-", " ")}</Tag>
 
       <Amount>{formatCurrency(totalPrice)}</Amount>

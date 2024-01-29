@@ -7,7 +7,16 @@ import {
 import Stat from "./Stat";
 import { formatCurrency } from "../../utils/helpers";
 import styled from "styled-components";
-
+const StyledStat=styled.div`
+   @media only screen and (max-width: 480px){
+    display: grid;
+    grid-template-columns: repeat(2,1fr);
+    grid-template-rows: repeat(2,1fr);
+    gap: 2rem;
+    align-items: center;
+    justify-content: center;
+   }
+`
 function Stats({ bookings, confirmedStays, numDays, cabinCount }) {
   // 1.
   const numBookings = bookings?.length;
