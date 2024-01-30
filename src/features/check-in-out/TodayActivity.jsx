@@ -20,14 +20,14 @@ const StyledToday = styled.div`
   grid-column: 1 / span 2;
   padding-top: 2.4rem;
   @media only screen and (max-width: 480px) {
-    width: 80%;
+    width: 100%;
     margin: 0 auto;
-    padding: 2rem;
+    /* padding: 2rem; */
     display: flex;
     flex-direction: column;
-    gap: 1.5rem;
+    /* gap: 1.5rem; */
     grid-column: 1 / span 2;
-    padding-top: 1.4rem;
+    /* padding-top: 1.4rem; */
   }
 `;
 
