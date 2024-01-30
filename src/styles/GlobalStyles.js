@@ -184,6 +184,10 @@ img {
   /* For dark mode */
   filter: grayscale(var(--image-grayscale)) opacity(var(--image-opacity));
 }
+@media only screen and (max-width: 480px){
+  /* width: 90%;
+  height: 90%; */
+}
 
 `;
 
