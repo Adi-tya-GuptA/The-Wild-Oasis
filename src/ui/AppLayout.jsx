@@ -9,11 +9,10 @@ const StyledAppLayout = styled.div`
   grid-template-rows: auto 1fr;
   height: 100vh;
   @media only screen and (max-width: 480px) {
-    height: fit-content;
-    grid-template-columns: auto ;
+    height: 100vh;
+    grid-template-columns: auto;
     /* grid-row: 1/span 3; */
     position: absolute;
-    
   }
 `;
 
@@ -37,7 +36,6 @@ const Container = styled.div`
     /* min-width: 70rem; */
     height: fit-content;
     gap: 2.2rem;
-    
   }
 `;
 
