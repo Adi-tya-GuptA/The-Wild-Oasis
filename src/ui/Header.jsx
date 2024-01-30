@@ -13,6 +13,14 @@ const StyledHeader = styled.header`
   align-items: center;
   justify-content: flex-end;
   /* flex-shrink: 1; */
+  @media only screen and (max-width: 480px) {
+    font-size: 0.5rem;
+    padding: 1rem 3.4rem;
+    border-bottom: 1px solid var(--color-grey-100);
+    display: flex;
+    gap: 1.7rem;
+    justify-content: space-evenly;
+  }
 `;
 
 function Header() {
