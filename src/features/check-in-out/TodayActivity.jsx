@@ -42,7 +42,7 @@ const TodayList = styled.ul`
   scrollbar-width: none;
   -ms-overflow-style: none;
   @media only screen and (max-width: 480px) {
-    width: 70%;
+    width: 100%;
   }
 `;
 
