@@ -16,7 +16,13 @@ const NavList = styled.ul`
   gap: 0.8rem;
   @media only screen and (max-width: 480px) {
     flex-direction: row;
-    gap: 0.5rem;
+    gap: 1rem;
+    padding: 0 2rem;
+    margin: 0 auto;
+    &:nth-last-child() {
+      padding-right: 0;
+      margin-right: 0;
+    }
   }
 `;
 
@@ -35,7 +41,7 @@ const StyledNavLink = styled(NavLink)`
     @media only screen and (max-width: 480px) {
       gap: 0.7rem;
       font-size: 1rem;
-      /* padding: 0.8rem 1.5rem; */
+      padding: 0.8rem 1.5rem;
     }
   }
 
@@ -64,17 +70,17 @@ const StyledNavLink = styled(NavLink)`
   }
   @media only screen and (max-width: 480px) {
     & svg {
-    width: 1.8rem;
-    height: 1.8rem;
-    color: var(--color-grey-400);
-    transition: all 0.3s;
-  }
+      width: 2rem;
+      height: 2rem;
+      color: var(--color-grey-400);
+      transition: all 0.3s;
+    }
     &:link,
     &:visited {
       display: flex;
       flex-direction: column;
       align-items: center;
-      gap: 0.2rem;
+      gap: 0.5rem;
 
       color: var(--color-grey-600);
       font-size: 0.8rem;
@@ -84,11 +90,17 @@ const StyledNavLink = styled(NavLink)`
     }
   }
 `;
+const StyledNave=styled.div`
+   /* padding: 1.2rem 2.4rem */
+   @media only screen and (max-width: 480px){
+    width: 90%;
+   }
+`
 
 function MainNav() {
   const { user } = useUser();
   return (
-    <nav>
+    <StyledNave>
       <NavList>
         <li>
           <StyledNavLink to="/dashboard">
@@ -134,7 +146,7 @@ function MainNav() {
           </li>
         )}
       </NavList>
-    </nav>
+    </StyledNave>
   );
 }
 

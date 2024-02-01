@@ -9,6 +9,8 @@ const StyledAppLayout = styled.div`
   grid-template-rows: auto 1fr;
   height: 100vh;
   background-color: var(--color-grey-50);
+  width: 100vw;
+  height: 100vh;
   @media only screen and (max-width: 480px) {
     height: 100vh;
     grid-template-columns: auto;
