@@ -24,7 +24,7 @@ const Main = styled.main`
     padding: 2.4 2.8rem 3.4rem;
     background-color: var(--color-grey-50);
     /* min-width: 100vw; */
-    width: fit-content;
+    /* width: fit-content; */
   }
 `;
 
