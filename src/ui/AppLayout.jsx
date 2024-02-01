@@ -8,6 +8,7 @@ const StyledAppLayout = styled.div`
   grid-template-columns: 26rem 1fr;
   grid-template-rows: auto 1fr;
   height: 100vh;
+  background-color: var(--color-grey-50);
   @media only screen and (max-width: 480px) {
     height: 100vh;
     grid-template-columns: auto;
@@ -24,8 +25,9 @@ const Main = styled.main`
     padding: 2.4 2.8rem 3.4rem;
     background-color: var(--color-grey-50);
     /* min-width: 100vw; */
-    /* width: fit-content; */
-    transform: scaleX(0.9);
+    /* width: 100%; */
+    /* transform: scaleX(0.9); */
+
     height: 100vh;
   }
 `;
