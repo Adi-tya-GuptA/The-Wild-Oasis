@@ -1,6 +1,5 @@
 import React from "react";
 
-
 import Spinner from "../../ui/Spinner";
 import CabinRow from "./CabinRow";
 import { useCabins } from "./useCabins";
@@ -33,14 +32,20 @@ export default function CabinTable() {
   );
   return (
     <Menus>
-      <Table columns="0.6fr 1.8fr 2.2fr 1fr 1fr 1fr">
+      <Table
+        columns={
+          window.innerWidth > 600
+            ? " 3fr 2fr 2fr 1.5fr 1fr"
+            : "0.6fr 1.8fr 2.2fr 1fr 1fr 1fr"
+        }
+      >
         <Table.Header role="row">
-          <div></div>
+          {window.innerWidth > 600 && <div></div>}
           <div>Cabin</div>
           <div>Capacity</div>
           <div>Price</div>
           <div>Discount</div>
-          <div></div>
+          <div>Action</div>
         </Table.Header>
         <Table.Body
           data={sortedCabins}

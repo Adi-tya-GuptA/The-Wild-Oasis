@@ -36,6 +36,11 @@ const Cabin = styled.div`
   font-weight: 600;
   color: var(--color-grey-600);
   font-family: "Sono";
+  @media only screen and (max-width: 480px) {
+    font-size: 1.2rem;
+    font-weight: 500;
+    padding-right:.2rem;
+  }
 `;
 
 const Price = styled.div`
@@ -54,17 +59,15 @@ const Buttons = styled.div`
   gap: 5px;
 `;
 
-
 export default function CabinRow({ cabin }) {
-
   const { id, name, maxCapacity, regularPrice, discount, image } = cabin;
   const { isLoading, deletCabin } = useDeleteCabin();
   return (
     <>
       <Table.Row role="row">
-        <Img src={image} />
+        {window.innerWidth > 600 && <Img src={image} />}
         <Cabin>{name}</Cabin>
-        <div>fits up to {maxCapacity} guests</div>
+        <div>{window.innerWidth > 600 &&'fits up to'} {maxCapacity} {window.innerWidth > 600 &&'guests'}</div>
         <Price>{formatCurrency(regularPrice)}</Price>
         <Discount>{discount ? formatCurrency(discount) : "-"}</Discount>
         <Buttons>

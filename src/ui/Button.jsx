@@ -2,7 +2,6 @@ import styled, { css } from "styled-components";
 
 const sizes = {
   small: css`
-    font-size: 1.2rem;
     padding: 0.4rem 0.8rem;
     text-transform: uppercase;
     font-weight: 600;
@@ -55,6 +54,10 @@ const Button = styled.button`
 
   ${(props) => sizes[props.size]}
   ${(props) => variations[props.variation]}
+  @media only screen and (max-width: 480px) {
+    font-size: 1rem;
+    padding: 0.7rem .9rem;
+  }
 `;
 
 Button.defaultProps = {

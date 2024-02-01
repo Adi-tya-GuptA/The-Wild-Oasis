@@ -25,6 +25,8 @@ const Main = styled.main`
     background-color: var(--color-grey-50);
     /* min-width: 100vw; */
     /* width: fit-content; */
+    transform: scaleX(0.9);
+    height: 100vh;
   }
 `;
 

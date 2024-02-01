@@ -17,9 +17,9 @@ const Row = styled.div`
       gap: 1.6rem;
     `}
     @media only screen and (max-width: 480px) {
-      /* flex-direction:column; */
-      gap:1rem
-    }
+    flex-direction: column;
+    gap: 1rem;
+  }
 `;
 
 Row.defaultProps = {

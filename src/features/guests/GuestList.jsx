@@ -23,19 +23,19 @@ function GuestList({ onClick }) {
   // console.log(count, 22);
 
   if (isLoading) return <Spinner />;
-  // if (count === undefined) return null;
+  // if (count === undefined) return null;padding: 1.2rem 1.6rem
   // if (count === 0) return <p>No guests found...</p>;
 
   return (
     <>
       {/* <Heading as="h1">Guests</Heading> */}
-      <Table columns=" 0.7fr 1fr 1fr 1fr">
+      <Table columns={window.innerWidth > 600?" 0.7fr 1fr 1fr 1fr":" 0.7fr 1fr 1fr 1fr"}>
         <Table.Header>
           <div>ID</div>
           {/* <div>Guest</div> */}
           <div>Guest Name</div>
           {/* <div>Status</div> */}
-          <div>Email Id</div>
+          {<div>Email Id</div>}
           <div>Action</div>
         </Table.Header>
 

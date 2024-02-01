@@ -23,12 +23,19 @@ const StyledGuestListItem = styled.li`
     background-color: var(--color-grey-50);
     cursor: pointer;
   }
+  @media only screen and (max-width: 480px) {
+    gap: .5rem;
+    padding: 0.4rem 1.4rem;
+  }
 `;
 
 const ID = styled.div`
   /* justify-self: right; */
   font-size: 1.5rem;
   color: var(--color-grey-500);
+  @media only screen and (max-width: 480px){
+    font-size: 1.2rem;
+  }
 `;
 
 function GuestListItem({ guest, onClick }) {

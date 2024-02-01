@@ -19,6 +19,9 @@ const StyledModal = styled.div`
   box-shadow: var(--shadow-lg);
   padding: 3.2rem 4rem;
   transition: all 0.5s;
+  @media only screen and (max-width: 480px) {
+    padding: 1.7rem 2rem;
+  }
 `;
 
 const Overlay = styled.div`
@@ -31,6 +34,7 @@ const Overlay = styled.div`
   backdrop-filter: blur(4px);
   z-index: 1000;
   transition: all 0.5s;
+  @media only screen and (max-width: 480px){}
 `;
 
 const Button = styled.button`
@@ -53,6 +57,29 @@ const Button = styled.button`
     height: 2.4rem;
 
     color: var(--color-grey-500);
+  }
+  @media only screen and (max-width: 480px){
+    background: none;
+  border: none;
+  padding: 0.2rem;
+  border-radius: var(--border-radius-sm);
+  transform: translateX(0.8rem);
+  transition: all 0.2s;
+  position: absolute;
+  top: 1.2rem;
+  right: 1.9rem;
+
+  &:hover {
+    background-color: var(--color-grey-100);
+  }
+
+  & svg {
+    width: 2.4rem;
+    height: 2.4rem;
+
+    color: var(--color-grey-500);
+  }
+    
   }
 `;
 

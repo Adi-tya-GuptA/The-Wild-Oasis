@@ -10,6 +10,10 @@ const StyledFilter = styled.div`
   padding: 0.4rem;
   display: flex;
   gap: 0.4rem;
+  @media only screen and (max-width: 480px){
+    padding: .1rem;
+    gap: .2rem;
+  } 
 `;
 
 const FilterButton = styled.button`
@@ -37,6 +41,7 @@ const FilterButton = styled.button`
   @media only screen and (max-width: 480px) {
     font-size: .7rem;
     font-weight: 400;
+    
     padding: 0.34rem 0.5rem;
   }
 `;

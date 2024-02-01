@@ -8,6 +8,24 @@ import Textarea from "../../ui/Textarea";
 import FormRow from "../../ui/FormRow";
 import { useCreateCabin } from "./useCreateCabin";
 import useEditCabin from "./useEditCabin";
+import styled from "styled-components";
+
+const StyledButtons = styled.div`
+  display: flex;
+  gap: 3rem;
+  padding: 2rem 4rem;
+  position: relative;
+  left: 430px;
+  top: 10px;
+  @media only screen and (max-width: 480px) {
+    display: flex;
+    gap: 2rem;
+    padding: 2rem 3rem;
+    margin: 0 1.5rem;
+    left: 0px;
+  top: 10px;
+  }
+`;
 
 // setShowForm={setShowForm} showForm={showForm}
 function CreateCabinForm({ cabinToEdit = {}, onCloseModal }) {
@@ -138,18 +156,20 @@ function CreateCabinForm({ cabinToEdit = {}, onCloseModal }) {
         />
       </FormRow>
 
-      <FormRow>
-        <Button
-          variation="secondary"
-          type="reset"
-          onClick={() => onCloseModal?.()}
-        >
-          Cancel
-        </Button>
-        <Button disabled={isWorking}>
-          {isEditSession ? "Edit Cabin" : "Add cabin"}
-        </Button>
-      </FormRow>
+      <>
+        <StyledButtons>
+          <Button disabled={isWorking}>
+            {isEditSession ? "Edit Cabin" : "Add cabin"}
+          </Button>
+          <Button
+            variation="secondary"
+            type="reset"
+            onClick={() => onCloseModal?.()}
+          >
+            Cancel
+          </Button>
+        </StyledButtons>
+      </>
     </Form>
   );
 }

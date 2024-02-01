@@ -37,12 +37,21 @@ const StyledFormRow = styled.div`
     `}
   @media only screen and (max-width: 480px) {
     width: 70%;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    padding: 1rem 0;
+    margin: 0 auto;
     /* background-color:yellow; */
   }
 `;
 
 const Label = styled.label`
   font-weight: 500;
+  @media only screen and (max-width: 480px) {
+    font-weight: 400;
+    width: 80%;
+  }
 `;
 
 const Error = styled.span`
