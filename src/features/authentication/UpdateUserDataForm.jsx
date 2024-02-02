@@ -8,6 +8,26 @@ import Input from "../../ui/Input";
 
 import { useUser } from "./useUser";
 import { useUpdateUser } from "./useUpdateUser";
+import styled from "styled-components";
+
+
+const StyledButtons = styled.div`
+  display: flex;
+  gap: 3rem;
+  padding: 2rem 4rem;
+  position: relative;
+  left: 430px;
+  top: 10px;
+  @media only screen and (max-width: 480px) {
+    display: flex;
+    gap: 2rem;
+    padding: 2rem 3rem;
+    margin: 0 1.5rem;
+    left: 0px;
+  top: 10px;
+  /* height: 40%; */
+  }
+`;
 
 function UpdateUserDataForm() {
   // We don't need the loading state, and can immediately use the user data, because we know that it has already been loaded at this point
@@ -68,7 +88,8 @@ function UpdateUserDataForm() {
         />
       </FormRow>
 
-      <FormRow>
+      <StyledButtons>
+        <Button disabled={isUpdating} >Update account</Button>
         <Button
           type="reset"
           variation="secondary"
@@ -77,8 +98,7 @@ function UpdateUserDataForm() {
         >
           Cancel
         </Button>
-        <Button disabled={isUpdating} >Update account</Button>
-      </FormRow>
+      </StyledButtons>
     </Form>
   );
 }

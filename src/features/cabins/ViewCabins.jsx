@@ -12,6 +12,11 @@ const SytledCabinDiv = styled.div`
   /* padding: 1.4rem; */
   background-color: var(--color-grey-50);
   /* overflow: hidden; */
+  @media only screen and (max-width: 480px){
+    grid-template-columns: 1fr;
+    grid-template-rows: repeat(9,20rem);
+    gap: 2rem;
+  }
 `;
 
 export default function ViewCabins() {

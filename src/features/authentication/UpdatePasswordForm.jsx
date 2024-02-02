@@ -4,6 +4,25 @@ import Form from '../../ui/Form';
 import FormRow from '../../ui/FormRow';
 import Input from '../../ui/Input';
 import { useUpdateUser } from './useUpdateUser';
+import styled from 'styled-components';
+
+const StyledButtons = styled.div`
+  display: flex;
+  gap: 3rem;
+  padding: 2rem 4rem;
+  position: relative;
+  left: 430px;
+  top: 10px;
+  @media only screen and (max-width: 480px) {
+    display: flex;
+    gap: 2rem;
+    padding: 2rem 3rem;
+    margin: 0 1.5rem;
+    left: 0px;
+  top: 10px;
+  /* height: 40%; */
+  }
+`;
 
 function UpdatePasswordForm() {
   const { register, handleSubmit, formState, getValues, reset } = useForm();
@@ -58,12 +77,12 @@ function UpdatePasswordForm() {
           })}
         />
       </FormRow>
-      <FormRow>
+      <StyledButtons>
+        <Button disabled={isUpdating}>Update password</Button>
         <Button onClick={handleReset} type='reset' variation='secondary'>
           Cancel
         </Button>
-        <Button disabled={isUpdating}>Update password</Button>
-      </FormRow>
+      </StyledButtons>
     </Form>
   );
 }

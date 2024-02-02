@@ -10,6 +10,7 @@ const StyledTable = styled.div`
   overflow: hidden;
   @media only screen and (max-width: 480px){
     font-size: 0.7rem;
+    overflow: scroll;
   }
 `;
 
@@ -19,6 +20,9 @@ const CommonRow = styled.header`
   column-gap: 2.4rem;
   align-items: center;
   transition: none;
+  @media only screen and (max-width: 480px){
+    column-gap: 1.4rem;
+  }
 `;
 
 const StyledHeader = styled(CommonRow)`
@@ -30,6 +34,9 @@ const StyledHeader = styled(CommonRow)`
   letter-spacing: 0.4px;
   font-weight: 600;
   color: var(--color-grey-600);
+  @media only screen and (max-width: 480px){
+    padding: 1rem 2rem;
+  }
 `;
 
 const StyledBody = styled.section`
@@ -41,6 +48,9 @@ const StyledRow = styled(CommonRow)`
 
   &:not(:last-child) {
     border-bottom: 1px solid var(--color-grey-100);
+  }
+  @media only screen and (max-width: 480px){
+    padding: 0.8rem 1.8rem;
   }
 `;
 

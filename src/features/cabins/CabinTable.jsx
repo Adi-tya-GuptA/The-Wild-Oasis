@@ -34,9 +34,9 @@ export default function CabinTable() {
     <Menus>
       <Table
         columns={
-          window.innerWidth > 600
+          window.innerWidth < 600
             ? " 3fr 2fr 2fr 1.5fr 1fr"
-            : "0.6fr 1.8fr 2.2fr 1fr 1fr 1fr"
+            : "1fr 1.8fr 2.2fr 1fr 1fr 1fr"
         }
       >
         <Table.Header role="row">

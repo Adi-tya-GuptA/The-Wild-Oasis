@@ -24,11 +24,12 @@ import Menus from "../../ui/Menus";
 
 const Img = styled.img`
   display: block;
-  width: 6.4rem;
+  width: 8rem;
   aspect-ratio: 3 / 2;
   object-fit: cover;
   object-position: center;
   transform: scale(1.5) translateX(-7px);
+  padding: 0.2rem;
 `;
 
 const Cabin = styled.div`
@@ -39,7 +40,7 @@ const Cabin = styled.div`
   @media only screen and (max-width: 480px) {
     font-size: 1.2rem;
     font-weight: 500;
-    padding-right:.2rem;
+    padding-right: 0.2rem;
   }
 `;
 
@@ -67,7 +68,10 @@ export default function CabinRow({ cabin }) {
       <Table.Row role="row">
         {window.innerWidth > 600 && <Img src={image} />}
         <Cabin>{name}</Cabin>
-        <div>{window.innerWidth > 600 &&'fits up to'} {maxCapacity} {window.innerWidth > 600 &&'guests'}</div>
+        <div>
+          {window.innerWidth > 600 && "fits up to"} {maxCapacity}{" "}
+          {window.innerWidth > 600 && "guests"}
+        </div>
         <Price>{formatCurrency(regularPrice)}</Price>
         <Discount>{discount ? formatCurrency(discount) : "-"}</Discount>
         <Buttons>

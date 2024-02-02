@@ -19,7 +19,10 @@ const StyledHeader = styled.header`
     border-bottom: 1px solid var(--color-grey-100);
     display: flex;
     gap: 1.7rem;
-    justify-content: space-evenly;
+    justify-content: space-between;
+    position: sticky;
+      top: 0;
+      z-index: 100000;
   }
 `;
 

@@ -17,6 +17,9 @@ const StyledCard = styled.div`
   &:hover {
     transform: scale(1);
   }
+  @media only screen and (max-width: 480px){
+    transform: scale(1);
+  }
 `;
 
 const StyledImage = styled.img`

@@ -16,6 +16,7 @@ import supabase from "../../services/supabase";
 import { useUser } from "../authentication/useUser";
 import { useEffect } from "react";
 import { useState } from "react";
+import StarRatings from "react-star-ratings";
 // import { styled } from "@tanstack/react-query-devtools/build/lib/utils";
 const PageContainer = styled.div`
   display: flex;
@@ -23,6 +24,11 @@ const PageContainer = styled.div`
   align-items: center;
   padding: 20px;
   gap: 10rem;
+  @media only screen and (max-width: 480px) {
+    flex-direction: column;
+    gap: 2rem;
+    /* padding: 5rem; */
+  }
 `;
 
 const CabinImage = styled.img`
@@ -30,6 +36,11 @@ const CabinImage = styled.img`
   max-width: 600px;
   border-radius: 1rem;
   margin-bottom: 20px;
+  @media only screen and (max-width: 480px){
+    border-radius: 0.5rem;
+    margin-bottom: 1rem;
+    /* width: 90%; */
+  }
 `;
 
 const CabinDetails = styled.div`
@@ -43,6 +54,12 @@ const StyledButton = styled.div`
 const CabinTitle = styled.h1`
   font-size: 3.4rem;
   margin-bottom: 10px;
+    margin-bottom: 20px;
+    @media only screen and (max-width: 480px){
+      font-size: 2rem;
+      margin-bottom: .5rem;
+    margin-bottom: 1rem;
+    }
 `;
 
 const CabinDescription = styled.p`
@@ -50,6 +67,12 @@ const CabinDescription = styled.p`
   line-height: 1.5;
   text-align: left;
   margin-bottom: 20px;
+  @media only screen and (max-width: 480px){
+    font-size: 1.5rem;
+  line-height: 1.5;
+  text-align: left;
+  margin-bottom: 10px;
+  }
 `;
 const CabinReviews = styled.span`
   color: #c1e00f;
@@ -81,7 +104,7 @@ const CabinDiscount = styled.span`
 export default function CabinPage() {
   const { isLoading, cabin } = useCabin();
   const navigate = useNavigate();
-  let { id:cabinId } = useParams();
+  let { id: cabinId } = useParams();
   const { guest, isLoading: guestLoading } = useGuestUser();
   const [Guest, setGuest] = useState();
   console.log(guest, "guest");
@@ -115,7 +138,7 @@ export default function CabinPage() {
     };
 
     fetchData(); // Invoke the async function
-  }, [user.id, Id,guest,cabinId]);
+  }, [user.id, Id, guest, cabinId]);
   console.log(Guest, 118);
   const moveBack = useMoveBack();
   const id = guest[0]?.id;
@@ -143,9 +166,9 @@ export default function CabinPage() {
   } = cabin;
   return (
     <div>
+      <ButtonText onClick={moveBack}>&larr; Back</ButtonText>
       <Row type="horizontal">
         <Heading as="h1">{name}</Heading>
-        <ButtonText onClick={moveBack}>&larr; Back</ButtonText>
       </Row>
 
       <PageContainer>
@@ -167,7 +190,14 @@ export default function CabinPage() {
             <div style={{ display: "flex", gap: "1rem" }}>
               <strong>Reviews:</strong>{" "}
               <CabinReviews>
-                {renderStars()} ({reviews} stars)
+                {/* {renderStars()} ({reviews} stars) */}
+                {/* <StyledRating> */}
+            <StarRatings
+              rating={Number(reviews)}
+              starDimension="20px"
+              starSpacing="5px"
+              starRatedColor="#FFD700"
+            />
               </CabinReviews>
             </div>
           </CabinInfo>

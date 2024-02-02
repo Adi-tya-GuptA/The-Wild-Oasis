@@ -5,6 +5,9 @@ import SpinnerMini from "../../ui/SpinnerMini";
 import Heading from "../../ui/Heading";
 import Tag from "../../ui/Tag";
 import StarRatings from "react-star-ratings";
+import Table from "../../ui/Table";
+import { formatCurrency, formatDistanceFromNow } from "../../utils/helpers";
+import { format, isToday } from "date-fns";
 
 const BookingCard = styled.div`
   border: 1px solid var(--color-grey-0);
@@ -53,9 +56,21 @@ const StyledRating = styled.div`
     margin-right: 1rem;
   }
 `;
-
+const Img = styled.img`
+  display: block;
+  width: 8rem;
+  aspect-ratio: 3 / 2;
+  object-fit: cover;
+  object-position: center;
+  transform: scale(1.5) translateX(-7px);
+  padding: 0.2rem;
+`;
 const StyledTag = styled.div`
   margin-top: 1rem;
+`;
+const Price = styled.div`
+  font-family: "Sono";
+  font-weight: 600;
 `;
 
 const StatusToTagName = {
@@ -63,6 +78,33 @@ const StatusToTagName = {
   "checked-in": "green",
   "checked-out": "silver",
 };
+const Stacked = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+
+  & span:first-child {
+    font-weight: 500;
+  }
+
+  & span:last-child {
+    color: var(--color-grey-500);
+    font-size: 1.2rem;
+  }
+  @media only screen and (max-width: 480px){
+    font-size: .5rem;
+  }
+
+`;
+const Cabin = styled.div`
+  font-size: 1.6rem;
+  font-weight: 600;
+  color: var(--color-grey-600);
+  font-family: "Sono";
+  @media only screen and (max-width: 480px){
+    font-size: 1rem;
+  }
+`;
 
 export default function MyBooking({ booking }) {
   const [userRating, setUserRating] = useState(0);
@@ -79,7 +121,11 @@ export default function MyBooking({ booking }) {
     created_at,
     totalPrice,
   } = booking;
-
+  const statusToTagName = {
+    unconfirmed: "blue",
+    "checked-in": "green",
+    "checked-out": "silver",
+  };
   const { isLoading, cabin } = useCabin(cabinId);
   if (isLoading) return <SpinnerMini />;
 
@@ -97,7 +143,33 @@ export default function MyBooking({ booking }) {
   };
 
   return (
-    <BookingCard>
+    <Table.Row>
+      {/* <div>{cabinId}</div> */}
+    {window.innerWidth > 600 &&   <Img src={image} alt="cabin image" />}
+      {    <Cabin>{name}</Cabin>}
+      <div>{formattedCreatedDate}</div>
+     { <div>{numGuests}</div>}
+      {/* <div>{totalPrice}</div> */}
+      <Price>{formatCurrency(totalPrice)}</Price>
+      {window.innerWidth>600&&<Stacked>
+        <span>
+          {isToday(new Date(startDate))
+            ? "Today"
+            : formatDistanceFromNow(startDate)}{" "}
+          &rarr; {numNights} night stay
+        </span>
+        <span>
+          {format(new Date(startDate), "MMM dd yyyy")} &mdash;{" "}
+          {format(new Date(endDate), "MMM dd yyyy")}
+        </span>
+      </Stacked>
+}
+      <Tag type={statusToTagName[status]}>{status.replace("-", " ")}</Tag>
+    </Table.Row>
+  );
+}
+/**
+ *  <BookingCard>
       <CabinImage src={image} alt="Cabin Image" />
       <BookingDetails>
         <Heading as="h1">{name} room</Heading>
@@ -125,5 +197,4 @@ export default function MyBooking({ booking }) {
         )}
       </BookingInfo>
     </BookingCard>
-  );
-}
+ */

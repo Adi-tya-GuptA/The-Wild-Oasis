@@ -19,6 +19,7 @@ const NavList = styled.ul`
     gap: 1rem;
     padding: 0 2rem;
     margin: 0 auto;
+    justify-content: space-evenly;
     &:nth-last-child() {
       padding-right: 0;
       margin-right: 0;
@@ -90,12 +91,12 @@ const StyledNavLink = styled(NavLink)`
     }
   }
 `;
-const StyledNave=styled.div`
-   /* padding: 1.2rem 2.4rem */
-   @media only screen and (max-width: 480px){
+const StyledNave = styled.div`
+  /* padding: 1.2rem 2.4rem */
+  @media only screen and (max-width: 480px) {
     width: 90%;
-   }
-`
+  }
+`;
 
 function MainNav() {
   const { user } = useUser();
@@ -121,19 +122,19 @@ function MainNav() {
           </StyledNavLink>
         </li>
 
-        {user.user_metadata.role === "guest" || (
-          <li>
-            <StyledNavLink to="/settings">
-              <HiOutlineCog6Tooth />
-              <span>Settings</span>
-            </StyledNavLink>
-          </li>
-        )}
         {user?.user_metadata.role === "guest" || (
           <li>
             <StyledNavLink to="/guests">
               <HiOutlineUser />
               <span>Guests</span>
+            </StyledNavLink>
+          </li>
+        )}
+        {user.user_metadata.role === "guest" || (
+          <li>
+            <StyledNavLink to="/settings">
+              <HiOutlineCog6Tooth />
+              <span>Settings</span>
             </StyledNavLink>
           </li>
         )}
